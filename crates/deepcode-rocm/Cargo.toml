@@ -1,0 +1,47 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "ROCm HIP backend for the Deepcode framework"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "gpu", "rocm", "hip"]
+license.workspace = true
+name = "deepcode-rocm"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-rocm"
+documentation = "https://docs.rs/deepcode-rocm"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["fusion", "deepcode-deepcl/default", "deepcl/default"]
+fusion = ["deepcode-fusion", "deepcode-deepcl/fusion"]
+autotune = ["deepcode-deepcl/autotune"]
+autotune-checks = ["deepcode-deepcl/autotune-checks"]
+doc = ["deepcode-deepcl/doc"]
+std = ["deepcode-deepcl/std", "deepcl/std"]
+
+[dependencies]
+deepcl = { workspace = true, features = ["hip"] }
+deepcode-deepcl = { path = "../deepcode-deepcl", version = "0.1.0", default-features = true }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", features = [
+    "deepcl-hip",
+] }
+deepcode-fusion = { path = "../deepcode-fusion", version = "0.1.0", optional = true }
+
+half = { workspace = true }
+bytemuck = { workspace = true }
+
+log = { workspace = true }
+derive-new = { workspace = true }
+
+[dev-dependencies]
+deepcode-deepcl = { path = "../deepcode-deepcl", version = "0.1.0", default-features = false, features = [
+    "export_tests",
+] }
+paste = { workspace = true }
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

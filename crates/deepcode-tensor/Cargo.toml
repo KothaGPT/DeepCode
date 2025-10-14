@@ -1,0 +1,58 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science", "no-std", "embedded", "wasm"]
+description = "Tensor library with user-friendly APIs and automatic differentiation support"
+documentation = "https://docs.rs/deepcode-tensor"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "tensor", "pytorch", "ndarray"]
+license.workspace = true
+name = "deepcode-tensor"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-tensor"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["std", "deepcode-common/rayon"]
+deepcl = ["dep:deepcl"]
+deepcl-cuda = ["deepcl", "deepcl/cuda"]
+deepcl-hip = ["deepcl", "deepcl/hip"]
+deepcl-wgpu = ["deepcl", "deepcl/wgpu"]
+deepcl-cpu = ["deepcl", "deepcl/cpu"]
+doc = ["default"]
+experimental-named-tensor = []
+export_tests = ["deepcode-tensor-testgen", "deepcl"]
+std = ["rand/std", "half/std", "num-traits/std", "deepcode-common/std", "colored"]
+
+[dependencies]
+deepcode-common = { path = "../deepcode-common", version = "0.1.0", default-features = false }
+deepcode-tensor-testgen = { path = "../deepcode-tensor-testgen", version = "0.1.0", optional = true }
+deepcl = { workspace = true, optional = true, default-features = false }
+deepcl-quant = { workspace = true }
+
+bytemuck = { workspace = true, features = ["extern_crate_alloc"] }
+colored = { workspace = true, optional = true }
+derive-new = { workspace = true }
+half = { workspace = true, features = ["bytemuck"] }
+num-traits = { workspace = true }
+rand = { workspace = true, default-features = false }
+rand_distr = { workspace = true }                                  # use instead of statrs because it supports no_std
+
+# The same implementation of HashMap in std but with no_std support (only needs alloc crate)
+hashbrown = { workspace = true } # no_std compatible
+
+# Serialization
+serde = { workspace = true }
+serde_bytes = { workspace = true }
+
+[dev-dependencies]
+bincode = { workspace = true }
+rand = { workspace = true, features = ["thread_rng"] } # Default enables std
+paste = { workspace = true }
+
+[package.metadata.docs.rs]
+features = ["doc"]
+# KaTeX header is copied to the crate root in the publish workflow
+rustdoc-args = ["--cfg", "docsrs", "--html-in-header", "katex-header.html"]

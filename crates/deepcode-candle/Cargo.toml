@@ -1,0 +1,44 @@
+[package]
+authors = ["louisfd <louisfd94@gmail.com>"]
+categories = ["science"]
+description = "Candle backend for the Deepcode framework"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "data"]
+license.workspace = true
+name = "deepcode-candle"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-candle"
+documentation = "https://docs.rs/deepcode-candle"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["std"]
+std = []
+doc = ["default"]
+cuda = ["candle-core/cuda"]
+metal = ["candle-core/metal"]
+accelerate = ["candle-core/accelerate"]
+
+[dependencies]
+derive-new = { workspace = true }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false }
+deepcode-common = { path = "../deepcode-common", version = "0.1.0", default-features = false }
+half = { workspace = true }
+candle-core = { workspace = true }
+
+[dev-dependencies]
+deepcode-autodiff = { path = "../deepcode-autodiff", version = "0.1.0", default-features = false, features = [
+    "export_tests",
+] }
+deepcode-tch = { path = "../deepcode-tch", version = "0.1.0", default-features = false, features = [
+] }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false, features = [
+    "export_tests",
+] }
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

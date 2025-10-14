@@ -1,0 +1,22 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+edition.workspace = true
+license.workspace = true
+name = "server"
+publish = false
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["webgpu"]
+cuda = ["deepcode/cuda"]
+webgpu = ["deepcode/webgpu"]
+vulkan = ["deepcode/vulkan"]
+ndarray = ["deepcode/ndarray"]
+
+[dependencies]
+cfg-if = { workspace = true }
+deepcode = { path = "../../crates/deepcode", version = "0.1.0", features = ["server"] }
+deepcl = { workspace = true }

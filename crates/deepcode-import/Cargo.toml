@@ -1,0 +1,60 @@
+[package]
+authors = [
+    "Dilshod Tadjibaev (@antimora)",
+    "Nathaniel Simard (@nathanielsimard)",
+]
+description = "Library for importing datamodels into the Deepcode framework"
+edition.workspace = true
+license.workspace = true
+name = "deepcode-import"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-import"
+documentation = "https://docs.rs/deepcode-import"
+version.workspace = true
+
+default-run = "onnx2deepcode"
+
+[lints]
+workspace = true
+
+[features]
+default = ["onnx", "pytorch", "safetensors"]
+onnx = ["deepcode-ndarray"]
+pytorch = ["deepcode/record-item-custom-serde", "thiserror", "zip"]
+safetensors = [
+    "deepcode/record-item-custom-serde",
+    "thiserror",
+    "zip",
+    "candle-core",
+]
+
+[dependencies]
+deepcode = { path = "../deepcode", version = "0.1.0", default-features = false, features = [
+    "std",
+] }
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0", default-features = false, optional = true }
+deepcode-store = { path = "../deepcode-store", version = "0.1.0", default-features = false, features = ["std", "pytorch"] }
+onnx-ir = { path = "../onnx-ir", version = "0.1.0" }
+candle-core = { workspace = true, optional = true }
+derive-new = { workspace = true }
+half = { workspace = true }
+log = { workspace = true }
+proc-macro2 = { workspace = true }
+quote = { workspace = true }
+regex = { workspace = true, features = ["default"] }
+rust-format = { workspace = true, features = ["pretty_please", "post_process"] }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true, features = ["std"] }
+syn = { workspace = true, features = ["parsing"] }
+thiserror = { workspace = true, optional = true }
+tracing-core = { workspace = true }
+tracing-subscriber = { workspace = true }
+zip = { workspace = true, optional = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }
+rstest = { workspace = true }
+
+[package.metadata.docs.rs]
+features = ["default"]
+rustdoc-args = ["--cfg", "docsrs"]

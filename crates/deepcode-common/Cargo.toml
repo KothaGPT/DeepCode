@@ -1,0 +1,43 @@
+[package]
+authors = ["Dilshod Tadjibaev (@antimora)"]
+categories = []
+description = "Common crate for the Deepcode framework"
+edition.workspace = true
+keywords = []
+license.workspace = true
+name = "deepcode-common"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-common"
+documentation = "https://docs.rs/deepcode-common"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["std", "deepcl-common/default"]
+std = ["deepcl-common/std"]
+doc = ["default"]
+network = ["dep:indicatif", "dep:reqwest", "dep:tokio"]
+rayon = ["dep:rayon"]
+
+[dependencies]
+serde = { workspace = true }
+
+# Network downloader
+indicatif = { workspace = true, optional = true }
+reqwest = { workspace = true, optional = true }
+tokio = { workspace = true, optional = true }
+
+# Parallel
+rayon = { workspace = true, optional = true }
+deepcl-common = { workspace = true, default-features = false, features = [
+    "serde",
+] }
+
+[dev-dependencies]
+dashmap = { workspace = true }
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

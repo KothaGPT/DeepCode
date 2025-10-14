@@ -1,0 +1,63 @@
+[package]
+authors = [
+    "nathanielsimard <nathaniel.simard.42@gmail.com>",
+    "wingertge <wingertge@gmail.com>",
+]
+categories = ["science"]
+description = "Vision processing operations for deepcode tensors"
+documentation = "https://docs.rs/deepcode-vision"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "gpu"]
+license.workspace = true
+name = "deepcode-vision"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-vision"
+version.workspace = true
+
+[lints]
+workspace = true
+
+
+[features]
+candle = ["deepcode-candle"]
+deepcl-backend = ["deepcl", "deepcode-deepcl"]
+default = ["ndarray", "deepcl-backend", "fusion", "std", "export-tests"]
+export-tests = ["deepcode-tensor-testgen"]
+fusion = ["deepcode-fusion", "deepcode-cuda/fusion", "deepcode-wgpu/fusion"]
+ndarray = ["deepcode-ndarray"]
+std = []
+tch = ["deepcode-tch"]
+
+# Test features
+test-cpu = ["export-tests"]
+test-cuda = ["deepcl-backend", "export-tests"]
+test-wgpu = ["deepcl-backend", "export-tests"]
+test-vulkan = ["deepcode-wgpu/vulkan", "test-wgpu"]
+test-metal = ["deepcode-wgpu/metal", "test-wgpu"]
+
+[dependencies]
+bon = { workspace = true }
+deepcode-candle = { path = "../deepcode-candle", version = "0.1.0", optional = true }
+deepcode-deepcl = { path = "../deepcode-deepcl", version = "0.1.0", optional = true }
+deepcode-fusion = { path = "../deepcode-fusion", version = "0.1.0", optional = true }
+deepcode-ir = { path = "../deepcode-ir", version = "0.1.0" }
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0", optional = true }
+deepcode-tch = { path = "../deepcode-tch", version = "0.1.0", optional = true }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0" }
+deepcode-tensor-testgen = { path = "../deepcode-tensor-testgen", version = "0.1.0", optional = true }
+bytemuck = { workspace = true }
+deepcl = { workspace = true, optional = true }
+derive-new = { workspace = true }
+half = { workspace = true }
+image = { version = "0.25" }
+macerator = { workspace = true }
+ndarray = { workspace = true }
+num-traits = { workspace = true }
+paste = { workspace = true }
+serde = { workspace = true }
+
+[dev-dependencies]
+deepcode-cuda = { path = "../deepcode-cuda", version = "0.1.0", default-features = false }
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0" }
+deepcode-wgpu = { path = "../deepcode-wgpu", version = "0.1.0", default-features = false }
+deepcl = { workspace = true }

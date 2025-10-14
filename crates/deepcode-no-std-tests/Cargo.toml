@@ -1,0 +1,22 @@
+[package]
+authors = [
+  "nathanielsimard <nathaniel.simard.42@gmail.com>",
+  "Dilshod Tadjibaev (@antimora)",
+]
+edition.workspace = true
+license.workspace = true
+name = "deepcode-no-std-tests"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-no-std-tests"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+
+# ** Please make sure all dependencies support no_std **
+
+deepcode = { path = "../deepcode", version = "0.1.0", default-features = false }
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0", default-features = false }
+deepcode-store = { path = "../deepcode-store", version = "0.1.0", default-features = false, features = ["safetensors"]}

@@ -1,0 +1,63 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "Training crate for the Deepcode framework"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "tensor", "pytorch", "ndarray"]
+license.workspace = true
+name = "deepcode-train"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-train"
+documentation = "https://docs.rs/deepcode-train"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["sys-metrics", "tui"]
+doc = ["default"]
+sys-metrics = ["nvml-wrapper", "sysinfo", "systemstat"]
+tui = ["ratatui"]
+# Distributed Data Parallel
+ddp = ["deepcode-collective", "deepcode-optim/collective"]
+
+[dependencies]
+deepcode-core = { path = "../deepcode-core", version = "0.1.0", features = [
+    "dataset",
+    "std",
+], default-features = false }
+deepcode-optim = { path = "../deepcode-optim", version = "0.1.0", features = [
+    "std",
+], default-features = false }
+deepcode-collective = { path = "../deepcode-collective", optional = true }
+
+log = { workspace = true }
+tracing-subscriber = { workspace = true }
+tracing-appender = { workspace = true }
+tracing-core = { workspace = true }
+
+# System Metrics
+nvml-wrapper = { workspace = true, optional = true }
+sysinfo = { workspace = true, optional = true }
+systemstat = { workspace = true, optional = true }
+
+# Text UI
+ratatui = { workspace = true, optional = true, features = [
+    "all-widgets",
+    "crossterm",
+] }
+
+# Utilities
+derive-new = { workspace = true }
+serde = { workspace = true, features = ["std", "derive"] }
+async-channel = { workspace = true }
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0" }
+rstest.workspace = true
+
+[dev-dependencies]
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0" }
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

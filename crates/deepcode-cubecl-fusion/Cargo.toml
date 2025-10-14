@@ -1,0 +1,40 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "Provide optimizations that can be used with deepcl based backends."
+documentation = "https://docs.rs/deepcode-deepcl-fusion"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "gpu"]
+license.workspace = true
+name = "deepcode-deepcl-fusion"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-deepcl-fusion"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+autotune = []
+autotune-checks = ["deepcl/autotune-checks"]
+default = ["autotune", "std", "deepcl/default", "deepcode-fusion/default"]
+doc = ["default"]
+std = ["deepcl/std", "deepcode-tensor/std", "deepcode-fusion/std"]
+
+[dependencies]
+deepcode-common = { path = "../deepcode-common", version = "0.1.0" }
+deepcode-fusion = { path = "../deepcode-fusion", version = "0.1.0", default-features = false }
+deepcode-ir = { path = "../deepcode-ir", version = "0.1.0", default-features = false }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false, features = [
+    "deepcl",
+] }
+deepcl = { workspace = true, features = ["matmul", "convolution", "reduce"] }
+deepcl-quant = { workspace = true, features = ["kernels"] }
+
+derive-new = { workspace = true }
+half = { workspace = true }
+serde = { workspace = true }
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

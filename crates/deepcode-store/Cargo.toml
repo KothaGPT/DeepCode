@@ -1,0 +1,80 @@
+[package]
+authors = ["Dilshod Tadjibaev (@antimora)"]
+categories = ["science", "no-std", "embedded", "wasm"]
+description = "Storage and serialization infrastructure for Deepcode"
+documentation = "https://docs.rs/deepcode-store"
+edition.workspace = true
+keywords = [
+    "deep-learning",
+    "machine-learning",
+    "tensor",
+    "storage",
+    "serialization",
+]
+license.workspace = true
+name = "deepcode-store"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-store"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+candle = ["deepcode-candle"]
+cuda = ["deepcode-cuda"]
+default = ["std", "pytorch", "safetensors"]
+metal = ["wgpu", "deepcode-wgpu/metal"]
+pytorch = ["deepcode-core/record-item-custom-serde", "zip", "serde"]
+safetensors = []
+std = [
+    "dep:memmap2",
+    "safetensors/std",
+    "deepcode-core/std",
+    "deepcode-tensor/std",
+    "dep:regex",
+    "byteorder/std",
+]
+tch = ["deepcode-tch"]
+wgpu = ["deepcode-wgpu"]
+
+[dependencies]
+deepcode-core = { path = "../deepcode-core", version = "0.1.0", default-features = false }
+deepcode-nn = { path = "../deepcode-nn", version = "0.1.0", default-features = false }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false }
+
+# External dependencies
+byteorder = { workspace = true, default-features = false }
+half = { workspace = true }
+hashbrown = { workspace = true, features = ["serde"] }
+memmap2 = { workspace = true, optional = true }
+regex = { workspace = true, optional = true }
+serde = { workspace = true, optional = true }
+zip = { workspace = true, optional = true }
+
+# Note: safetensors requires either std or alloc feature
+# We always require std for file I/O functionality
+# change after https://github.com/huggingface/safetensors/issues/650 is released to support no_std
+# safetensors = { workspace = true }
+safetensors = { git = "https://github.com/huggingface/safetensors", rev = "0816a1a", default-features = false }
+
+# Optional backend dependencies for benchmarks
+deepcode-candle = { path = "../deepcode-candle", version = "0.1.0", optional = true }
+deepcode-cuda = { path = "../deepcode-cuda", version = "0.1.0", optional = true }
+deepcode-tch = { path = "../deepcode-tch", version = "0.1.0", optional = true }
+deepcode-wgpu = { path = "../deepcode-wgpu", version = "0.1.0", optional = true }
+
+[dev-dependencies]
+deepcode = { path = "../deepcode", version = "0.1.0" }
+deepcode-import = { path = "../deepcode-import", version = "0.1.0" }
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0" }
+divan = "0.1"
+tempfile = { workspace = true }
+
+[[bench]]
+harness = false
+name = "resnet18_loading"
+
+[[bench]]
+harness = false
+name = "unified_loading"

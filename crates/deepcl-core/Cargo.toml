@@ -1,0 +1,53 @@
+[package]
+authors = [
+    "nathanielsimard <nathaniel.simard.42@gmail.com>",
+    "louisfd <louisfd94@gmail.com>",
+]
+categories = ["science", "mathematics", "algorithms"]
+description = "DeepCL core create"
+edition.workspace = true
+keywords = []
+license.workspace = true
+name = "deepcl-core"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcl-core"
+version.workspace = true
+
+[features]
+default = ["deepcl-runtime/default"]
+export_tests = []
+std = ["deepcl-runtime/std"]
+template = []
+
+[dependencies]
+deepcl-ir = { path = "../deepcl-ir", version = "0.1.0", default-features = false, features = [
+    "serde",
+] }
+deepcl-runtime = { path = "../deepcl-runtime", version = "0.1.0", default-features = false }
+
+bitflags = { workspace = true }
+bytemuck = { workspace = true }
+deepcl-common = { path = "../deepcl-common", version = "0.1.0", default-features = false }
+deepcl-macros = { path = "../deepcl-macros", version = "0.1.0", default-features = false }
+derive-new = { workspace = true }
+derive_more = { workspace = true, features = [
+    "not",
+    "add",
+    "mul",
+    "add_assign",
+    "mul_assign",
+    "display",
+] }
+enumset = { workspace = true }
+half = { workspace = true, features = ["bytemuck"] }
+hashbrown = { workspace = true }
+log = { workspace = true }
+num-traits = { workspace = true }
+paste = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+variadics_please = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }
+trybuild = "1"

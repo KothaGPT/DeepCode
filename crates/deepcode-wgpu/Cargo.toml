@@ -1,0 +1,56 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "WGPU backend for the Deepcode framework"
+documentation = "https://docs.rs/deepcode-wgpu"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "gpu", "wgpu", "webgpu"]
+license.workspace = true
+name = "deepcode-wgpu"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-wgpu"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+autotune = ["deepcode-deepcl/autotune"]
+autotune-checks = ["deepcode-deepcl/autotune-checks"]
+default = ["std", "autotune", "fusion", "deepcode-deepcl/default", "deepcl/default"]
+doc = ["deepcode-deepcl/doc"]
+exclusive-memory-only = ["deepcl/exclusive-memory-only"]
+fusion = ["deepcode-fusion", "deepcode-deepcl/fusion"]
+std = ["deepcode-deepcl/std", "deepcl/std"]
+template = ["deepcode-deepcl/template", "deepcl/template"]
+
+# Backends
+metal = ["deepcl-msl"]
+vulkan = ["deepcl-spirv"]
+webgpu = ["deepcl-wgsl"]
+
+# Compilers
+deepcl-msl = ["deepcl/wgpu-msl"]
+deepcl-spirv = ["deepcl/wgpu-spirv"]
+deepcl-wgsl = []
+
+[dependencies]
+deepcl = { workspace = true, features = ["wgpu"] }
+
+deepcode-deepcl = { path = "../deepcode-deepcl", version = "0.1.0", default-features = false }
+deepcode-fusion = { path = "../deepcode-fusion", version = "0.1.0", optional = true }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false, features = [
+    "deepcl-wgpu",
+] }
+
+
+[dev-dependencies]
+deepcode-deepcl = { path = "../deepcode-deepcl", version = "0.1.0", default-features = false, features = [
+    "export_tests",
+] }
+half = { workspace = true }
+paste = { workspace = true }
+
+[package.metadata.docs.rs]
+features = ["default"]
+rustdoc-args = ["--cfg", "docsrs"]

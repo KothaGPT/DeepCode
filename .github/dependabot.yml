@@ -1,0 +1,19 @@
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "cargo"
+    directories:
+      - "/"
+      - "crates/deepcode"
+      - "crates/deepcode-*"
+      - "crates/deepcode-import/*-tests"
+      - "examples/*"
+      - "xtask"
+    schedule:
+      interval: "weekly"
+

@@ -1,0 +1,33 @@
+[package]
+authors = [
+    "nathanielsimard <nathaniel.simard.42@gmail.com>",
+    "louisfd <louisfd94@gmail.com",
+]
+categories = ["science"]
+description = "Procedural macros for DeepCL"
+edition.workspace = true
+keywords = []
+license.workspace = true
+name = "deepcl-macros"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcl-macros"
+version.workspace = true
+
+[lib]
+proc-macro = true
+
+[features]
+debug_symbols = []
+default = []
+std = []
+
+[dependencies]
+darling = { workspace = true }
+derive-new = { workspace = true }
+ident_case = { workspace = true }
+prettyplease = "0.2"
+proc-macro2 = { workspace = true }
+quote = { workspace = true }
+syn = { workspace = true }
+
+deepcl-common = { path = "../deepcl-common", version = "0.19", default-features = false }

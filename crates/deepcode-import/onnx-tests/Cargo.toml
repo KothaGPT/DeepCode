@@ -1,0 +1,21 @@
+[package]
+name = "onnx-tests"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = ["test-ndarray"]
+test-wgpu = ["deepcode/wgpu"]
+test-ndarray = ["deepcode/ndarray"]
+test-tch = ["deepcode/tch"]
+test-metal = ["deepcode/metal"]
+test-candle = ["deepcode/candle"]
+
+[dev-dependencies]
+deepcode = { path = "../../deepcode" }
+serde = { workspace = true }
+float-cmp = { workspace = true }
+
+[build-dependencies]
+deepcode-import = { path = "../" }

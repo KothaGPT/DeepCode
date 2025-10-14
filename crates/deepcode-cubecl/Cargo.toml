@@ -1,0 +1,102 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "Generic backend that can be compiled just-in-time to any shader language target"
+documentation = "https://docs.rs/deepcode-deepcl"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "gpu"]
+license.workspace = true
+name = "deepcode-deepcl"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-deepcl"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+autotune = ["deepcode-deepcl-fusion?/autotune"]
+autotune-checks = [
+    "autotune",
+    "deepcl/autotune-checks",
+    "deepcode-deepcl-fusion?/autotune-checks",
+]
+memory-checks = ["deepcode-fusion?/memory-checks"]
+default = [
+    "autotune",
+    "std",
+    "fusion",
+    "deepcl/default",
+    "deepcode-fusion?/default",
+    "deepcode-deepcl-fusion?/default",
+]
+doc = ["default"]
+export_tests = [
+    # Too expensive and flaky for the CI.
+    # "memory-checks", 
+    # "autotune-checks",
+    "deepcode-tensor-testgen",
+    "serial_test",
+    "deepcode-autodiff/export_tests",
+    "deepcode-tensor/export_tests",
+    "deepcode-ndarray",
+    "fusion",
+    "paste",
+]
+fusion = ["deepcode-fusion", "deepcode-deepcl-fusion"]
+fusion-experimental = ["fusion"]
+std = [
+    "deepcl/std",
+    "deepcode-tensor/std",
+    "deepcode-fusion?/std",
+    "deepcode-deepcl-fusion?/std",
+]
+
+template = []
+
+[dependencies]
+deepcode-common = { path = "../deepcode-common", version = "0.1.0" }
+deepcode-fusion = { path = "../deepcode-fusion", version = "0.1.0", default-features = false, optional = true }
+deepcode-deepcl-fusion = { path = "../deepcode-deepcl-fusion", version = "0.1.0", default-features = false, optional = true }
+deepcode-ir = { path = "../deepcode-ir", version = "0.1.0", default-features = false }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false, features = [
+    "deepcl",
+] }
+deepcl = { workspace = true, features = [
+    "matmul",
+    "convolution",
+    "reduce",
+    "random",
+    "stdlib",
+] }
+deepcl-quant = { workspace = true, features = ["kernels"] }
+
+bytemuck = { workspace = true }
+derive-new = { workspace = true }
+half = { workspace = true, features = ["bytemuck"] }
+log = { workspace = true }
+num-traits = { workspace = true }
+rand = { workspace = true }
+spin = { workspace = true }
+
+# Async
+futures-lite = { workspace = true, features = ["std"] }
+
+# Template
+serde = { workspace = true }
+text_placeholder = { workspace = true, features = ["struct_context"] }
+
+deepcode-tensor-testgen = { path = "../deepcode-tensor-testgen", version = "0.1.0", optional = true }
+hashbrown = { workspace = true }
+
+# When exporting tests
+deepcode-autodiff = { path = "../deepcode-autodiff", version = "0.1.0", default-features = false, optional = true }
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0", features = [
+    "export_tests", # for "native" sub-byte quantization tests reference
+], optional = true }
+paste = { workspace = true, optional = true }
+serial_test = { workspace = true, optional = true }
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

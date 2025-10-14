@@ -1,0 +1,31 @@
+[package]
+edition.workspace = true
+name = "modern-lstm"
+version = "0.3.0"
+
+[lints]
+workspace = true
+
+[features]
+cuda = ["deepcode/cuda"]
+ndarray = ["deepcode/ndarray"]
+ndarray-blas-accelerate = ["deepcode/ndarray", "deepcode/accelerate"]
+ndarray-blas-netlib = ["deepcode/ndarray", "deepcode/blas-netlib"]
+ndarray-blas-openblas = ["deepcode/ndarray", "deepcode/openblas"]
+tch-cpu = ["deepcode/tch"]
+tch-gpu = ["deepcode/tch"]
+wgpu = ["deepcode/wgpu"]
+
+[dependencies]
+deepcode = { path = "../../crates/deepcode", features = ["train"] }
+
+# Random number generator
+rand = { workspace = true, features = ["thread_rng"] }
+rand_distr = { workspace = true }
+
+# Serialization
+serde = { workspace = true, features = ["std", "derive"] }
+
+# Organise the results in dataframe
+planus = { workspace = true }
+polars = { workspace = true }

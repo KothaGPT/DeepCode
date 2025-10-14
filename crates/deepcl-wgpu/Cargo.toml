@@ -1,0 +1,168 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "WGPU runtime for the DeepCL"
+edition.workspace = true
+keywords = ["gpu", "wgpu", "webgpu", "gpgpu"]
+license.workspace = true
+name = "deepcl-wgpu"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcl-wgpu"
+version.workspace = true
+
+[features]
+default = [
+    "deepcl-runtime/default",
+    "deepcl-common/default",
+    "deepcl-core/default",
+]
+exclusive-memory-only = ["deepcl-runtime/exclusive-memory-only"]
+std = [
+    "deepcl-runtime/std",
+    "deepcl-common/std",
+    "deepcl-core/std",
+    "sanitize-filename",
+]
+# 'msl' and 'spirv' features are exclusive
+# TODO find a way to have wgpu runtime auto-compiler to support several compilers at the same time
+msl = ["deepcl-cpp/metal"]
+profile-tracy = ["tracy-client"]
+spirv = ["deepcl-spirv", "ash", "tracel-ash"]
+
+spirv-dump = ["std"]
+
+attention_tests = ["deepcl-attention/attention_tests"]
+conv_tests = ["deepcl-convolution/conv_tests"]
+matmul_tests_all = [
+    "matmul_tests_unit",
+    "matmul_tests_plane",
+    "matmul_tests_vecmat",
+    "matmul_tests_tma",
+    "matmul_tests_double",
+    "matmul_tests_simple",
+    "matmul_tests_ordered",
+    "matmul_tests_cyclic",
+    "matmul_tests_strided",
+    "matmul_tests_tilewise",
+    "matmul_tests_hybrid",
+    "matmul_tests_barrier",
+    "matmul_tests_specialized",
+    "matmul_tests_f16",
+    "matmul_tests_f32",
+    "matmul_tests_layouts",
+    "matmul_tests_alt_shapes",
+    "matmul_tests_partition_buffering",
+    "matmul_tests_hypercube",
+]
+matmul_tests_alt_shapes = ["deepcl-matmul/matmul_tests_alt_shapes"]
+matmul_tests_barrier = ["deepcl-matmul/matmul_tests_barrier"]
+matmul_tests_base = [
+    "matmul_tests_plane",
+    "matmul_tests_vecmat",
+    "matmul_tests_double",
+    "matmul_tests_simple",
+    "matmul_tests_ordered",
+    "matmul_tests_cyclic",
+    "matmul_tests_f16",
+]
+matmul_tests_cyclic = ["deepcl-matmul/matmul_tests_cyclic"]
+matmul_tests_double = ["deepcl-matmul/matmul_tests_double"]
+matmul_tests_f16 = ["deepcl-matmul/matmul_tests_f16"]
+matmul_tests_f32 = ["deepcl-matmul/matmul_tests_f32"]
+matmul_tests_hybrid = ["deepcl-matmul/matmul_tests_hybrid"]
+matmul_tests_hypercube = ["deepcl-matmul/matmul_tests_hypercube"]
+matmul_tests_layouts = ["deepcl-matmul/matmul_tests_layouts"]
+matmul_tests_ordered = ["deepcl-matmul/matmul_tests_ordered"]
+matmul_tests_partition_buffering = [
+    "deepcl-matmul/matmul_tests_partition_buffering",
+]
+matmul_tests_plane = ["deepcl-matmul/matmul_tests_plane"]
+matmul_tests_simple = ["deepcl-matmul/matmul_tests_simple"]
+matmul_tests_specialized = ["deepcl-matmul/matmul_tests_specialized"]
+matmul_tests_strided = ["deepcl-matmul/matmul_tests_strided"]
+matmul_tests_tilewise = ["deepcl-matmul/matmul_tests_tilewise"]
+matmul_tests_tma = ["deepcl-matmul/matmul_tests_tma"]
+matmul_tests_unit = ["deepcl-matmul/matmul_tests_unit"]
+matmul_tests_vecmat = ["deepcl-matmul/matmul_tests_vecmat"]
+
+[dependencies]
+deepcl-common = { path = "../deepcl-common", version = "0.7.0", default-features = false }
+deepcl-core = { path = "../deepcl-core", version = "0.7.0", default-features = false }
+deepcl-runtime = { path = "../deepcl-runtime", version = "0.7.0", default-features = false, features = [
+    "channel-mutex",
+] }
+derive_more = { workspace = true }
+half = { workspace = true }
+sanitize-filename = { workspace = true, optional = true }
+tracy-client = { workspace = true, optional = true }
+
+# SPIR-V
+ash = { workspace = true, optional = true }
+deepcl-spirv = { path = "../deepcl-spirv", version = "0.7.0", optional = true }
+tracel-ash = { workspace = true, optional = true }
+
+# Metal
+deepcl-cpp = { path = "../deepcl-cpp", version = "0.7.0", features = [
+    "metal",
+], optional = true }
+
+bytemuck = { workspace = true }
+
+async-channel = { workspace = true }
+derive-new = { workspace = true }
+hashbrown = { workspace = true }
+log = { workspace = true }
+
+cfg-if = { workspace = true }
+
+## wgpu dependency for platforms other than macOS
+[target.'cfg(not(target_os = "macos"))'.dependencies]
+wgpu = { version = "26.0.0", features = ["fragile-send-sync-non-atomic-wasm"] }
+## Uncomment if targeting metal through msl feature
+# wgpu = { git = "https://github.com/tracel-ai/wgpu", features = ["fragile-send-sync-non-atomic-wasm"], rev = "624db2ae762b83446693020ae637e2c5879b3af9" }
+## For development on wgpu uncomment this one and make it point to your local wgpu repo
+# wgpu = { path = "../../../../tracel/wgpu/wgpu", features = ["fragile-send-sync-non-atomic-wasm"]}
+## On macOS, the `vulkan-portability` feature is required due to the MoltenVK translation layer.
+# To install MoltenVK, install the VulkanSDK: https://vulkan.lunarg.com/sdk/home#mac
+[target.'cfg(target_os = "macos")'.dependencies]
+wgpu = { version = "26.0.0", features = [
+    "vulkan-portability",
+    "fragile-send-sync-non-atomic-wasm",
+] }
+## Uncomment if targeting metal through msl feature
+# wgpu = { git = "https://github.com/tracel-ai/wgpu", features = ["vulkan-portability", "fragile-send-sync-non-atomic-wasm"], rev = "624db2ae762b83446693020ae637e2c5879b3af9" }
+## For development on wgpu uncomment this one and make it point to your local wgpu repo
+# wgpu = { path = "../../../../tracel/wgpu/wgpu", features = ["vulkan-portability", "fragile-send-sync-non-atomic-wasm"]}
+
+[dev-dependencies]
+deepcl-attention = { path = "../deepcl-attention", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-convolution = { path = "../deepcl-convolution", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-core = { path = "../deepcl-core", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-matmul = { path = "../deepcl-matmul", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-quant = { path = "../deepcl-quant", version = "0.7.0", features = [
+    "export_tests",
+    "kernels",
+] }
+deepcl-random = { path = "../deepcl-random", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-reduce = { path = "../deepcl-reduce", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-std = { path = "../deepcl-std", version = "0.7.0", features = [
+    "export_tests",
+] }
+half = { workspace = true }
+paste = { workspace = true }
+pretty_assertions = { workspace = true }
+
+[build-dependencies]
+cfg_aliases = "0.2.1"

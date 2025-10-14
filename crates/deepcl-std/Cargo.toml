@@ -1,0 +1,31 @@
+[package]
+authors = [
+    "nathanielsimard <nathaniel.simard.42@gmail.com>",
+    "louisfd <louisfd94@gmail.com>",
+    "maxtremblay <t.maxime@pm.me>",
+]
+categories = ["science", "mathematics", "algorithms"]
+description = "DeepCL Standard Library."
+edition.workspace = true
+keywords = []
+license.workspace = true
+name = "deepcl-std"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcl-std"
+version.workspace = true
+
+[features]
+export_tests = []
+
+[dependencies]
+
+deepcl-core = { path = "../deepcl-core", version = "0.1.0", default-features = false }
+deepcl-runtime = { path = "../deepcl-runtime", version = "0.1.0", default-features = false }
+half.workspace = true
+paste = { workspace = true }
+serde = { workspace = true }
+variadics_please = { workspace = true }
+
+# no_std compat
+foldhash = { workspace = true }
+spin = { workspace = true }

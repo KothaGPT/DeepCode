@@ -1,0 +1,62 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "Backend extension for collective calculations."
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "collective"]
+license.workspace = true
+name = "deepcode-collective"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-collective"
+documentation = "https://docs.rs/deepcode-collective"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = []
+doc = []
+orchestrator = ["deepcode-communication/websocket"]
+
+# Backends for testing
+test-ndarray = ["deepcode-ndarray"]
+test-wgpu = ["deepcode-wgpu", "deepcode-wgpu/webgpu"]
+test-metal = ["deepcode-wgpu", "deepcode-wgpu/metal"]
+test-vulkan = ["deepcode-wgpu", "deepcode-wgpu/vulkan"]
+test-cuda = ["deepcode-cuda"]
+
+[dependencies]
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = true }
+deepcode-common = { path = "../deepcode-common", version = "0.1.0", default-features = true }
+
+log = { workspace = true }
+
+deepcode-communication = { path = "../deepcode-communication", version = "0.1.0", features = [
+    "data-service",
+    "websocket",
+] }
+tokio = { workspace = true, features = [
+    "rt-multi-thread",
+    "sync",
+    "signal",
+    "time",
+] }
+serde = { workspace = true, features = ["derive"] }
+rmp-serde = { workspace = true }
+bytes = { workspace = true }
+futures = { workspace = true }
+tokio-util = { workspace = true }
+
+# Tests
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0", optional = true }
+deepcode-wgpu = { path = "../deepcode-wgpu", version = "0.1.0", optional = true }
+deepcode-cuda = { path = "../deepcode-cuda", version = "0.1.0", optional = true }
+
+[dev-dependencies]
+serial_test = { workspace = true }
+
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

@@ -1,0 +1,374 @@
+name: publish
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      dry-run-only:
+        description: "Run xtask publish in dry-run mode (no publish)"
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  publish-deepcode-vision:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    with:
+      crate: deepcode-vision
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    needs:
+      - publish-deepcode-autodiff
+      - publish-deepcode-candle
+      - publish-deepcode-fusion
+      - publish-deepcode-deepcl-fusion
+      - publish-deepcode-deepcl
+      - publish-deepcode-ndarray
+      - publish-deepcode-tch
+      - publish-deepcode-tensor
+      - publish-deepcode-ir
+      - publish-deepcode-tensor-testgen
+      # dev dependencies
+      - publish-deepcode-wgpu
+      - publish-deepcode-cuda
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-router:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    with:
+      crate: deepcode-router
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    needs:
+      - publish-deepcode-ir
+      - publish-deepcode-common
+      - publish-deepcode-tensor
+      # dev dependencies
+      - publish-deepcode-autodiff
+      - publish-deepcode-ndarray
+      - publish-deepcode-wgpu
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-remote:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    with:
+      crate: deepcode-remote
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    needs:
+      - publish-deepcode-ir
+      - publish-deepcode-common
+      - publish-deepcode-tensor
+      - publish-deepcode-router
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-derive:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    with:
+      crate: deepcode-derive
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-dataset:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    with:
+      crate: deepcode-dataset
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    needs:
+      - publish-deepcode-common
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-common:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    with:
+      crate: deepcode-common
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-tensor-testgen:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    with:
+      crate: deepcode-tensor-testgen
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-tensor:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-tensor-testgen
+      - publish-deepcode-common
+    with:
+      crate: deepcode-tensor
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+      copy-doc-assets: "docs/katex-header.html"
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-ir:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-tensor
+    with:
+      crate: deepcode-ir
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-fusion:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-ir
+      - publish-deepcode-tensor
+      - publish-deepcode-common
+    with:
+      crate: deepcode-fusion
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-deepcl-fusion:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-ir
+      - publish-deepcode-common
+      - publish-deepcode-fusion
+      - publish-deepcode-tensor
+    with:
+      crate: deepcode-deepcl-fusion
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-deepcl:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-ir
+      - publish-deepcode-common
+      - publish-deepcode-fusion
+      - publish-deepcode-deepcl-fusion
+      - publish-deepcode-tensor
+      - publish-deepcode-ndarray
+    with:
+      crate: deepcode-deepcl
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-autodiff:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-tensor
+      - publish-deepcode-tensor-testgen
+      - publish-deepcode-common
+    with:
+      crate: deepcode-autodiff
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-tch:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-tensor
+      - publish-deepcode-autodiff
+    with:
+      crate: deepcode-tch
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-ndarray:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-ir
+      - publish-deepcode-tensor
+      - publish-deepcode-autodiff
+      - publish-deepcode-common
+    with:
+      crate: deepcode-ndarray
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-wgpu:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-tensor
+      - publish-deepcode-autodiff
+      - publish-deepcode-ndarray
+      - publish-deepcode-common
+      - publish-deepcode-deepcl
+    with:
+      crate: deepcode-wgpu
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-cuda:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-tensor
+      - publish-deepcode-autodiff
+      - publish-deepcode-ndarray
+      - publish-deepcode-common
+      - publish-deepcode-deepcl
+    with:
+      crate: deepcode-cuda
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-rocm:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-tensor
+      - publish-deepcode-autodiff
+      - publish-deepcode-ndarray
+      - publish-deepcode-common
+      - publish-deepcode-deepcl
+    with:
+      crate: deepcode-rocm
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-candle:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-tensor
+      - publish-deepcode-autodiff
+      - publish-deepcode-tch
+    with:
+      crate: deepcode-candle
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-collective:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    with:
+      crate: deepcode-collective
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    needs:
+      - publish-deepcode-common
+      - publish-deepcode-tensor
+      - publish-deepcode-communication
+      # dev dependencies
+      - publish-deepcode-wgpu
+      - publish-deepcode-ndarray
+      - publish-deepcode-cuda
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-communication:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    with:
+      crate: deepcode-communication
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    needs:
+      - publish-deepcode-common
+      - publish-deepcode-tensor
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-core:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-dataset
+      - publish-deepcode-common
+      - publish-deepcode-derive
+      - publish-deepcode-tensor
+      - publish-deepcode-vision
+      # dev dependencies
+      - publish-deepcode-autodiff
+      - publish-deepcode-wgpu
+      - publish-deepcode-tch
+      - publish-deepcode-cuda
+      - publish-deepcode-ndarray
+      - publish-deepcode-candle
+      - publish-deepcode-remote
+    with:
+      crate: deepcode-core
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-nn:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-core
+      # dev dependencies
+      - publish-deepcode-autodiff
+      - publish-deepcode-wgpu
+      - publish-deepcode-tch
+      - publish-deepcode-ndarray
+      - publish-deepcode-candle
+      - publish-deepcode-remote
+    with:
+      crate: deepcode-nn
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-optim:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-core
+      - publish-deepcode-collective
+      # dev dependencies
+      - publish-deepcode-autodiff
+      - publish-deepcode-wgpu
+      - publish-deepcode-tch
+      - publish-deepcode-ndarray
+      - publish-deepcode-candle
+      - publish-deepcode-remote
+    with:
+      crate: deepcode-optim
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-train:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-core
+    with:
+      crate: deepcode-train
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode-core
+      - publish-deepcode-train
+    with:
+      crate: deepcode
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-deepcode-import:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    needs:
+      - publish-deepcode
+    with:
+      crate: deepcode-import
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+
+  publish-onnx-ir:
+    uses: tracel-ai/github-actions/.github/workflows/publish-crate.yml@v4
+    with:
+      crate: onnx-ir
+      dry-run-only: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run-only || false }}
+    secrets:
+      CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}

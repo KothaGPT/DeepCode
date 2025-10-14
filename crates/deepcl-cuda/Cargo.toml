@@ -1,0 +1,129 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "CUDA runtime for DeepCL"
+edition.workspace = true
+keywords = ["gpu", "cuda"]
+license.workspace = true
+name = "deepcl-cuda"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcl-cuda"
+version.workspace = true
+
+[features]
+default = [
+    "std",
+    "deepcl-runtime/default",
+    "deepcl-common/default",
+    "deepcl-core/default",
+    "cudarc/dynamic-loading",
+    "cuda-12050",
+]
+ptx-wmma = []
+std = ["deepcl-runtime/std", "deepcl-common/std", "deepcl-core/std"]
+
+cuda-12050 = ["cudarc/cuda-12050"]
+cuda-12080 = ["cudarc/cuda-12080"]
+
+attention_tests = ["deepcl-attention/attention_tests"]
+conv_tests = ["deepcl-convolution/conv_tests"]
+matmul_tests_all = [
+    "matmul_tests_unit",
+    "matmul_tests_plane",
+    "matmul_tests_vecmat",
+    "matmul_tests_tma",
+    "matmul_tests_double",
+    "matmul_tests_simple",
+    "matmul_tests_ordered",
+    "matmul_tests_cyclic",
+    "matmul_tests_strided",
+    "matmul_tests_tilewise",
+    "matmul_tests_hybrid",
+    "matmul_tests_barrier",
+    "matmul_tests_specialized",
+    "matmul_tests_f16",
+    "matmul_tests_f32",
+    "matmul_tests_layouts",
+    "matmul_tests_alt_shapes",
+    "matmul_tests_partition_buffering",
+    "matmul_tests_hypercube",
+]
+matmul_tests_alt_shapes = ["deepcl-matmul/matmul_tests_alt_shapes"]
+matmul_tests_barrier = ["deepcl-matmul/matmul_tests_barrier"]
+matmul_tests_base = [
+    "matmul_tests_plane",
+    "matmul_tests_vecmat",
+    "matmul_tests_double",
+    "matmul_tests_simple",
+    "matmul_tests_ordered",
+    "matmul_tests_cyclic",
+    "matmul_tests_f16",
+]
+matmul_tests_cyclic = ["deepcl-matmul/matmul_tests_cyclic"]
+matmul_tests_double = ["deepcl-matmul/matmul_tests_double"]
+matmul_tests_f16 = ["deepcl-matmul/matmul_tests_f16"]
+matmul_tests_f32 = ["deepcl-matmul/matmul_tests_f32"]
+matmul_tests_hybrid = ["deepcl-matmul/matmul_tests_hybrid"]
+matmul_tests_hypercube = ["deepcl-matmul/matmul_tests_hypercube"]
+matmul_tests_layouts = ["deepcl-matmul/matmul_tests_layouts"]
+matmul_tests_ordered = ["deepcl-matmul/matmul_tests_ordered"]
+matmul_tests_partition_buffering = [
+    "deepcl-matmul/matmul_tests_partition_buffering",
+]
+matmul_tests_plane = ["deepcl-matmul/matmul_tests_plane"]
+matmul_tests_simple = ["deepcl-matmul/matmul_tests_simple"]
+matmul_tests_specialized = ["deepcl-matmul/matmul_tests_specialized"]
+matmul_tests_strided = ["deepcl-matmul/matmul_tests_strided"]
+matmul_tests_tilewise = ["deepcl-matmul/matmul_tests_tilewise"]
+matmul_tests_tma = ["deepcl-matmul/matmul_tests_tma"]
+matmul_tests_unit = ["deepcl-matmul/matmul_tests_unit"]
+matmul_tests_vecmat = ["deepcl-matmul/matmul_tests_vecmat"]
+
+[dependencies]
+deepcl-common = { path = "../deepcl-common", version = "0.7.0", default-features = false, features = [
+    "cache",
+] }
+deepcl-core = { path = "../deepcl-core", version = "0.7.0", default-features = false }
+deepcl-cpp = { path = "../deepcl-cpp", version = "0.7.0", default-features = false, features = [
+    "cuda",
+] }
+deepcl-runtime = { path = "../deepcl-runtime", version = "0.7.0", default-features = false, features = [
+    "channel-mutex",
+] }
+
+bytemuck = { workspace = true }
+cudarc = { workspace = true }
+
+derive-new = { workspace = true }
+half = { workspace = true }
+log = { workspace = true }
+serde = { workspace = true }
+
+[dev-dependencies]
+deepcl-attention = { path = "../deepcl-attention", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-convolution = { path = "../deepcl-convolution", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-core = { path = "../deepcl-core", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-matmul = { path = "../deepcl-matmul", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-quant = { path = "../deepcl-quant", version = "0.7.0", features = [
+    "export_tests",
+    "kernels",
+] }
+deepcl-random = { path = "../deepcl-random", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-reduce = { path = "../deepcl-reduce", version = "0.7.0", features = [
+    "export_tests",
+] }
+deepcl-std = { path = "../deepcl-std", version = "0.7.0", features = [
+    "export_tests",
+] }
+paste = { workspace = true }
+pretty_assertions = { workspace = true }

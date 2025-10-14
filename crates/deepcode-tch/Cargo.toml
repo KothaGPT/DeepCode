@@ -1,0 +1,47 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "LibTorch backend for the Deepcode framework using the tch bindings."
+documentation = "https://docs.rs/deepcode-tch"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "data"]
+license.workspace = true
+name = "deepcode-tch"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-tch"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["std"]
+std = ["deepcode-tensor/std"]
+doc = ["tch/doc-only"]
+
+[dependencies]
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false }
+deepcode-common = { path = "../deepcode-common", version = "0.1.0", default-features = false }
+
+half = { workspace = true, features = ["std"] }
+libc = { workspace = true }
+log = { workspace = true }
+tch = { workspace = true, features = ["download-libtorch"] }
+torch-sys = { workspace = true }                             # for build script lib dir detection
+
+
+[dev-dependencies]
+deepcode-autodiff = { path = "../deepcode-autodiff", version = "0.1.0", default-features = false, features = [
+    "export_tests",
+] }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false, features = [
+    "export_tests",
+] }
+rand = { workspace = true, features = ["thread_rng"] }
+
+[build-dependencies]
+cc = "1.2.40"
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

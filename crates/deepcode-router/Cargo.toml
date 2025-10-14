@@ -1,0 +1,49 @@
+[package]
+authors = [
+    "laggui <lagrange.guillaume.1@gmail.com>",
+    "nathanielsimard <nathaniel.simard.42@gmail.com>",
+]
+categories = ["science"]
+description = "Multi-backend router decorator for the Deepcode framework"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "data"]
+license.workspace = true
+name = "deepcode-router"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-router"
+documentation = "https://docs.rs/deepcode-router"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["std"]
+std = ["deepcode-tensor/std", "deepcode-common/std", "deepcode-ir/std"]
+doc = ["default"]
+
+[dependencies]
+deepcode-ir = { path = "../deepcode-ir", version = "0.1.0", default-features = false }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false }
+deepcode-common = { path = "../deepcode-common", version = "0.1.0", default-features = false }
+hashbrown = { workspace = true }
+spin = { workspace = true }
+log = { workspace = true }
+
+[dev-dependencies]
+deepcode-autodiff = { path = "../deepcode-autodiff", version = "0.1.0", default-features = false, features = [
+    "export_tests",
+] }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false, features = [
+    "export_tests",
+] }
+
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0" }
+deepcode-wgpu = { path = "../deepcode-wgpu", version = "0.1.0", default-features = false, features = [
+    "std",
+] }
+
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

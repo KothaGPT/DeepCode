@@ -1,0 +1,89 @@
+[package]
+authors = ["louisfd <louisfd94@gmail.com>"]
+categories = ["science", "mathematics", "algorithms"]
+description = "DeepCL Matrix Multiplication Kernels Engine"
+edition.workspace = true
+keywords = []
+license.workspace = true
+name = "deepcl-matmul"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcl-matmul"
+version.workspace = true
+
+[features]
+default = ["std", "deepcl-runtime/default", "deepcl-core/default"]
+export_tests = ["pretty_assertions"]
+std = ["deepcl-runtime/std", "deepcl-core/std"]
+
+matmul_tests_unit = []
+matmul_tests_plane = []
+matmul_tests_vecmat = []
+matmul_tests_tma = []
+
+matmul_tests_double = []
+matmul_tests_simple = []
+matmul_tests_ordered = []
+
+matmul_tests_cyclic = []
+matmul_tests_strided = []
+matmul_tests_tilewise = []
+matmul_tests_hybrid = []
+
+matmul_tests_barrier = []
+
+matmul_tests_specialized = []
+matmul_tests_partition_buffering = []
+matmul_tests_hypercube = []
+
+matmul_tests_f16 = []
+matmul_tests_f32 = []
+
+matmul_tests_layouts = []
+matmul_tests_alt_shapes = []
+
+matmul_tests_base = [
+    "matmul_tests_plane",
+    "matmul_tests_vecmat",
+    "matmul_tests_double",
+    "matmul_tests_simple",
+    "matmul_tests_ordered",
+    "matmul_tests_cyclic",
+    "matmul_tests_f16",
+]
+
+matmul_tests_all = [
+    "matmul_tests_unit",
+    "matmul_tests_plane",
+    "matmul_tests_vecmat",
+    "matmul_tests_double",
+    "matmul_tests_simple",
+    "matmul_tests_ordered",
+    "matmul_tests_cyclic",
+    "matmul_tests_strided",
+    "matmul_tests_tilewise",
+    "matmul_tests_hybrid",
+    "matmul_tests_barrier",
+    "matmul_tests_specialized",
+    "matmul_tests_f16",
+    "matmul_tests_f32",
+    "matmul_tests_layouts",
+    "matmul_tests_alt_shapes",
+    "matmul_tests_partition_buffering",
+    "matmul_tests_tma",
+    "matmul_tests_hypercube",
+]
+
+[dependencies]
+bytemuck = { workspace = true }
+deepcl-common = { path = "../deepcl-common", version = "0.1.0", default-features = false }
+deepcl-core = { path = "../deepcl-core", version = "0.1.0", default-features = false }
+deepcl-runtime = { path = "../deepcl-runtime", version = "0.1.0", default-features = false }
+deepcl-std = { path = "../deepcl-std", version = "0.1.0", default-features = false }
+deepcl-reduce = { path = "../deepcl-reduce", version = "0.1.0", default-features = false }
+deepcl-random = { path = "../deepcl-random", version = "0.1.0", default-features = false }
+half = { workspace = true, features = ["bytemuck"] }
+pretty_assertions = { workspace = true, optional = true }
+serde = { workspace = true }
+
+[dev-dependencies]
+trybuild = "1"

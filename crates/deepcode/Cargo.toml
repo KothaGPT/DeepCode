@@ -1,0 +1,165 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science", "no-std", "embedded", "wasm"]
+description = "Flexible and Comprehensive Deep Learning Framework in Rust"
+documentation = "https://docs.rs/deepcode"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "tensor", "pytorch", "ndarray"]
+license.workspace = true
+name = "deepcode"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode"
+rust-version = "1.89"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = [
+    "std",
+    "deepcode-core/default",
+    "deepcode-train?/default",
+    "deepcode-collective?/default",
+    # Backends
+    "deepcode-candle?/default",
+    "deepcode-cpu?/default",
+    "deepcode-ndarray?/default",
+    "deepcode-tch?/default",
+    "deepcode-wgpu?/default",
+    "deepcode-router?/default",
+    "deepcode-remote?/default",
+    "deepcode-cuda?/default",
+    "deepcode-autodiff?/default",
+    "deepcode-rocm?/default",
+    "deepcode-nn/default",
+    "deepcode-optim/default",
+]
+doc = [
+    "default",
+    "train",
+    "deepcode-core/doc",
+    "deepcode-train/doc",
+    "deepcode-collective/doc",
+    "deepcode-store?/std",
+    # Backends
+    "deepcode-candle/doc",
+    "deepcode-cpu?/doc",
+    "deepcode-ndarray/doc",
+    "deepcode-tch/doc",
+    "deepcode-wgpu/doc",
+    "deepcode-router/doc",
+    "deepcode-cuda/doc",
+    "deepcode-autodiff?/std",
+    "deepcode-rocm/doc",
+    "deepcode-nn/doc",
+    "deepcode-optim/doc",
+]
+std = [
+    "deepcode-core/std",
+    # Backends
+    "deepcode-candle?/std",
+    "deepcode-ndarray?/std",
+    "deepcode-wgpu?/std",
+    "deepcode-router?/std",
+    "deepcode-cuda?/std",
+    "deepcode-autodiff?/std",
+    "deepcode-rocm?/std",
+    "deepcode-store?/std",
+    "deepcode-nn/std",
+    "deepcode-optim/std",
+]
+
+network = ["deepcode-core/network"]
+
+# Training with full features
+train = ["deepcode-train", "autodiff", "dataset"]
+
+## Includes the Text UI (progress bars, metric plots)
+tui = ["deepcode-train?/tui"]
+
+##  Includes system info metrics (CPU/GPU usage, etc)
+metrics = ["deepcode-train?/sys-metrics"]
+
+# Datasets
+dataset = ["deepcode-core/dataset"]
+
+sqlite = ["deepcode-core/sqlite"]
+sqlite-bundled = ["deepcode-core/sqlite-bundled"]
+
+# Custom deserializer for Record that is helpful for importing data, such as PyTorch pt files.
+record-item-custom-serde = ["deepcode-core/record-item-custom-serde"]
+# Serialization formats
+experimental-named-tensor = ["deepcode-core/experimental-named-tensor"]
+
+# Model storage and serialization (SafeTensors, PyTorch interop)
+store = ["deepcode-store"]
+
+# DeepCL re-export
+deepcl = ["dep:deepcl"]
+
+audio = ["deepcode-core/audio"]
+vision = ["deepcode-core/vision"]
+
+# Backend
+ir = ["deepcode-ir"]
+autodiff = ["deepcode-autodiff"]
+fusion = ["ir", "deepcode-wgpu?/fusion", "deepcode-cuda?/fusion", "deepcode-rocm?/fusion", "deepcode-cpu?/fusion"]
+
+## Backend features
+accelerate = ["deepcode-candle?/accelerate", "deepcode-ndarray?/blas-accelerate"]
+autotune = ["deepcode-wgpu?/autotune", "deepcode-cuda?/autotune", "deepcode-rocm?/autotune"]
+autotune-checks = [
+    "deepcode-wgpu?/autotune-checks",
+    "deepcode-cuda?/autotune-checks",
+    "deepcode-rocm?/autotune-checks",
+]
+blas-netlib = ["deepcode-ndarray?/blas-netlib"]
+openblas = ["deepcode-ndarray?/blas-openblas"]
+openblas-system = ["deepcode-ndarray?/blas-openblas-system"]
+remote = ["deepcode-remote/client", "ir"]
+router = ["deepcode-router", "ir"]
+server = ["deepcode-remote/server"]
+simd = ["deepcode-ndarray?/simd"]
+template = ["deepcode-wgpu?/template"]
+collective = ["deepcode-collective", "deepcode-optim/collective", "deepcode-train?/ddp"]
+
+candle = ["deepcode-candle"]
+candle-cuda = ["candle", "deepcode-candle/cuda"]
+candle-metal = ["deepcode-candle?/metal"]
+cuda = ["deepcode-cuda"]
+rocm = ["deepcode-rocm"]
+ndarray = ["deepcode-ndarray"]
+tch = ["deepcode-tch"]
+vulkan = ["wgpu", "deepcode-wgpu/vulkan"]
+webgpu = ["wgpu", "deepcode-wgpu/webgpu"]
+metal = ["wgpu", "deepcode-wgpu/metal"]
+wgpu = ["deepcode-wgpu"]
+cpu = ["deepcode-cpu"]
+
+
+[dependencies]
+
+# ** Please make sure all dependencies support no_std when std is disabled **
+
+deepcode-core = { path = "../deepcode-core", version = "0.1.0", default-features = false }
+deepcode-train = { path = "../deepcode-train", version = "0.1.0", optional = true, default-features = false }
+deepcode-collective = { path = "../deepcode-collective", version = "0.1.0", optional = true, default-features = false }
+deepcode-store = { path = "../deepcode-store", version = "0.1.0", optional = true, default-features = false }
+deepcode-nn = { path = "../deepcode-nn", version = "0.1.0", default-features = false }
+deepcode-optim = { path = "../deepcode-optim", version = "0.1.0", default-features = false }
+
+# Backends
+deepcode-autodiff = { path = "../deepcode-autodiff", version = "0.1.0", optional = true, default-features = false }
+deepcode-candle = { path = "../deepcode-candle", version = "0.1.0", optional = true }
+deepcode-cuda = { path = "../deepcode-cuda", version = "0.1.0", optional = true, default-features = false }
+deepcode-cpu = { path = "../deepcode-cpu", version = "0.1.0", optional = true, default-features = false }
+deepcode-rocm = { path = "../deepcode-rocm", version = "0.1.0", optional = true, default-features = false }
+deepcode-ndarray = { path = "../deepcode-ndarray", version = "0.1.0", optional = true, default-features = false }
+deepcode-remote = { path = "../deepcode-remote", version = "0.1.0", default-features = false, optional = true }
+deepcode-router = { path = "../deepcode-router", version = "0.1.0", default-features = false, optional = true }
+deepcode-tch = { path = "../deepcode-tch", version = "0.1.0", default-features = false, optional = true }
+deepcode-wgpu = { path = "../deepcode-wgpu", version = "0.1.0", optional = true, default-features = false }
+deepcode-ir = { path = "../deepcode-ir", version = "0.1.0", optional = true, default-features = false }
+
+deepcl = { workspace = true, default-features = false, optional = true }

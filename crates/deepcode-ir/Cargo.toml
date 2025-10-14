@@ -1,0 +1,33 @@
+[package]
+authors = ["laggui <lagrange.guillaume.1@gmail.com>", "nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "Intermediate representation for the Deepcode framework"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "tensor"]
+license.workspace = true
+name = "deepcode-ir"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-ir"
+documentation = "https://docs.rs/deepcode-ir"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["std"]
+std = ["deepcode-tensor/std"]
+doc = ["default"]
+
+[dependencies]
+serde = { workspace = true }
+hashbrown = { workspace = true } # no_std compatible
+
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", default-features = false }
+
+[target.'cfg(not(target_has_atomic = "ptr"))'.dependencies]
+portable-atomic-util = { workspace = true }
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

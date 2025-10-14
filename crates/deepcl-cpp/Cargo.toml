@@ -1,0 +1,38 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "CPP transpiler for DeepCL"
+edition.workspace = true
+keywords = ["cpp", "gpu", "cuda", "hip", "metal"]
+license.workspace = true
+name = "deepcl-cpp"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcl-cpp"
+version.workspace = true
+
+[features]
+cuda = []
+default = [
+    "deepcl-runtime/default",
+    "deepcl-common/default",
+    "deepcl-core/default",
+    "metal",
+]
+hip = []
+metal = []
+std = ["deepcl-runtime/std", "deepcl-common/std", "deepcl-core/std"]
+
+[dependencies]
+deepcl-common = { path = "../deepcl-common", version = "0.7.0", default-features = false }
+deepcl-core = { path = "../deepcl-core", version = "0.7.0", default-features = false }
+# For shared allocation
+deepcl-opt = { path = "../deepcl-opt", version = "0.7.0", default-features = false }
+deepcl-runtime = { path = "../deepcl-runtime", version = "0.7.0", default-features = false, features = [
+    "channel-mutex",
+] }
+itertools = { version = "0.14.0", default-features = false }
+
+bytemuck = { workspace = true }
+derive-new = { workspace = true }
+half = { workspace = true }
+log = { workspace = true }

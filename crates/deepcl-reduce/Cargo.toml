@@ -1,0 +1,30 @@
+[package]
+authors = [
+  "nathanielsimard <nathaniel.simard.42@gmail.com>",
+  "louisfd <louisfd94@gmail.com>",
+  "maxtremblay <t.maxime@pm.me>",
+]
+categories = ["science", "mathematics", "algorithms"]
+description = "DeepCL Reduce Algorithms."
+edition.workspace = true
+keywords = []
+license.workspace = true
+name = "deepcl-reduce"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcl-reduce"
+version.workspace = true
+
+[features]
+default = ["std", "deepcl-runtime/default", "deepcl-core/default"]
+export_tests = ["pretty_assertions", "rand"]
+std = ["deepcl-runtime/std", "deepcl-core/std"]
+
+[dependencies]
+deepcl-core = { path = "../deepcl-core", version = "0.1.0", default-features = false }
+deepcl-runtime = { path = "../deepcl-runtime", version = "0.1.0", default-features = false }
+deepcl-std = { path = "../deepcl-std", version = "0.1.0", default-features = false }
+num-traits = "0.2.19"
+pretty_assertions = { workspace = true, optional = true }
+rand = { workspace = true, optional = true }
+serde = { workspace = true }
+half = { workspace = true }

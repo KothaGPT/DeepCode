@@ -1,0 +1,49 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "CUDA backend for the Deepcode framework"
+documentation = "https://docs.rs/deepcode-cuda"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "gpu", "cuda"]
+license.workspace = true
+name = "deepcode-cuda"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-cuda"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+autotune = ["deepcode-deepcl/autotune"]
+autotune-checks = ["deepcode-deepcl/autotune-checks"]
+default = ["std", "fusion", "autotune", "deepcode-deepcl/default", "deepcl/default"]
+doc = ["deepcode-deepcl/doc"]
+fusion = ["deepcode-fusion", "deepcode-deepcl/fusion"]
+std = ["deepcode-deepcl/std", "deepcl/std"]
+
+[dependencies]
+deepcode-fusion = { path = "../deepcode-fusion", version = "0.1.0", optional = true }
+deepcode-deepcl = { path = "../deepcode-deepcl", version = "0.1.0", default-features = false }
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0", features = [
+    "deepcl-cuda",
+] }
+deepcl = { workspace = true, features = ["cuda"] }
+
+bytemuck = { workspace = true }
+half = { workspace = true }
+
+derive-new = { workspace = true }
+log = { workspace = true }
+
+
+[dev-dependencies]
+deepcode-deepcl = { path = "../deepcode-deepcl", version = "0.1.0", default-features = false, features = [
+    "export_tests",
+] }
+paste = { workspace = true }
+
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

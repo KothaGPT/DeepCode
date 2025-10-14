@@ -1,0 +1,32 @@
+[package]
+authors = ["aasheeshsingh <aasheeshdtu@gmail.com>"]
+edition.workspace = true
+license.workspace = true
+name = "simple-regression"
+publish = false
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["deepcode/dataset", "deepcode/sqlite-bundled"]
+ndarray = ["deepcode/ndarray"]
+ndarray-blas-accelerate = ["deepcode/ndarray", "deepcode/accelerate"]
+ndarray-blas-netlib = ["deepcode/ndarray", "deepcode/blas-netlib"]
+ndarray-blas-openblas = ["deepcode/ndarray", "deepcode/openblas"]
+tch-cpu = ["deepcode/tch"]
+tch-gpu = ["deepcode/tch"]
+wgpu = ["deepcode/wgpu"]
+remote = ["deepcode/remote"]
+
+[dependencies]
+deepcode = {path = "../../crates/deepcode", features=["train"]}
+
+# Serialization
+log = {workspace = true}
+serde = {workspace = true, features = ["std", "derive"]}
+
+# Displaying results
+textplots = "0.8.7"
+rgb = "0.8.52"

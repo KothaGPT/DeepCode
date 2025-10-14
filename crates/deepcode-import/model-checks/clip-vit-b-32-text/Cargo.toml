@@ -1,0 +1,26 @@
+[package]
+name = "deepcode-import-model-checks-clip-vit-b-32-text"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[features]
+default = ["tch"]
+ndarray = []
+tch = []
+wgpu = []
+metal = []
+
+[dependencies]
+deepcode = { path = "../../../../crates/deepcode", features = [
+    "ndarray",
+    "tch",
+    "wgpu",
+    "metal",
+] }
+deepcode-import = { path = "../../../deepcode-import", features = ["pytorch"] }
+
+[build-dependencies]
+deepcode-import = { path = "../../../deepcode-import" }

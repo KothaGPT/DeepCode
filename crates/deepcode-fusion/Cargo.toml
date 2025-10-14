@@ -1,0 +1,37 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science"]
+description = "Kernel fusion backend decorator for the Deepcode framework"
+edition.workspace = true
+keywords = ["deep-learning", "machine-learning", "data"]
+license.workspace = true
+name = "deepcode-fusion"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcode-fusion"
+documentation = "https://docs.rs/deepcode-fusion"
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["std"]
+std = ["serde/std"]
+doc = ["default"]
+memory-checks = ["std"]
+
+[dependencies]
+deepcode-tensor = { path = "../deepcode-tensor", version = "0.1.0" }
+deepcode-common = { path = "../deepcode-common", version = "0.1.0" }
+deepcode-ir = { path = "../deepcode-ir", version = "0.1.0" }
+
+hashbrown = { workspace = true }
+derive-new = { workspace = true }
+spin = { workspace = true }
+log = { workspace = true }
+serde = { workspace = true }
+half = { workspace = true }
+
+[package.metadata.docs.rs]
+features = ["doc"]
+rustdoc-args = ["--cfg", "docsrs"]

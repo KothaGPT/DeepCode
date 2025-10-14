@@ -1,0 +1,16 @@
+[package]
+authors = []
+name = "normalization"
+publish = false
+edition.workspace = true
+license.workspace = true
+version.workspace = true
+
+[features]
+default = []
+wgpu = ["deepcl/wgpu"]
+cuda = ["deepcl/cuda"]
+
+[dependencies]
+deepcl = { path = "../../crates/deepcl", version = "0.7.0" }
+half = { workspace = true }

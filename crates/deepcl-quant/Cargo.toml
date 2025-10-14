@@ -1,0 +1,28 @@
+[package]
+authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+categories = ["science", "mathematics", "algorithms"]
+description = "DeepCL Quantization Library."
+edition.workspace = true
+keywords = []
+license.workspace = true
+name = "deepcl-quant"
+readme.workspace = true
+repository = "https://github.com/kothagpt/deepcode/tree/main/crates/deepcl-quant"
+version.workspace = true
+
+[features]
+default = ["kernels"]
+export_tests = []
+kernels = ["std", "deepcl-core", "deepcl-runtime", "deepcl-std"]
+std = ["deepcl-core?/std", "deepcl-runtime?/std"]
+
+[dependencies]
+deepcl-common = { path = "../deepcl-common", version = "0.7.0", default-features = false, features = [
+    "fp8",
+] }
+deepcl-core = { path = "../deepcl-core", version = "0.7.0", default-features = false, optional = true }
+deepcl-runtime = { path = "../deepcl-runtime", version = "0.7.0", default-features = false, optional = true }
+deepcl-std = { path = "../deepcl-std", version = "0.7.0", default-features = false, optional = true }
+
+half.workspace = true
+serde = { workspace = true }

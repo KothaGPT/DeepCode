@@ -1,0 +1,202 @@
+name: publish
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish-deepcl-common:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-common
+    secrets: inherit
+
+  publish-deepcl-macros-internal:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-macros-internal
+    secrets: inherit
+
+  publish-deepcl-ir:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-ir
+    needs:
+      - publish-deepcl-common
+      - publish-deepcl-macros-internal
+    secrets: inherit
+
+  publish-deepcl-std:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-std
+    needs:
+      - publish-deepcl-core
+      - publish-deepcl-runtime
+    secrets: inherit
+
+  publish-deepcl-runtime:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-runtime
+    needs:
+      - publish-deepcl-ir
+      - publish-deepcl-common
+    secrets: inherit
+
+  publish-deepcl-macros:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-macros
+    needs:
+      - publish-deepcl-common
+    secrets: inherit
+
+  publish-deepcl-core:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-core
+    needs:
+      - publish-deepcl-ir
+      - publish-deepcl-runtime
+      - publish-deepcl-macros
+    secrets: inherit
+
+  publish-deepcl-random:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-random
+    needs:
+      - publish-deepcl-runtime
+      - publish-deepcl-std
+      - publish-deepcl-core
+      - publish-deepcl-common
+    secrets: inherit
+
+  publish-deepcl-reduce:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-reduce
+    needs:
+      - publish-deepcl-std
+      - publish-deepcl-runtime
+      - publish-deepcl-core
+    secrets: inherit
+
+  publish-deepcl-matmul:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-matmul
+    needs:
+      - publish-deepcl-runtime
+      - publish-deepcl-std
+      - publish-deepcl-reduce
+      - publish-deepcl-core
+      - publish-deepcl-common
+      - publish-deepcl-random
+    secrets: inherit
+
+  publish-deepcl-convolution:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-convolution
+    needs:
+      - publish-deepcl-runtime
+      - publish-deepcl-std
+      - publish-deepcl-reduce
+      - publish-deepcl-core
+      - publish-deepcl-common
+      - publish-deepcl-random
+      - publish-deepcl-matmul
+    secrets: inherit
+
+  publish-deepcl-opt:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-opt
+    needs:
+      - publish-deepcl-ir
+      - publish-deepcl-common
+      - publish-deepcl-core
+    secrets: inherit
+
+  publish-deepcl-spirv:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-spirv
+    needs:
+      - publish-deepcl-opt
+      - publish-deepcl-common
+      - publish-deepcl-core
+      - publish-deepcl-random
+      - publish-deepcl-runtime
+    secrets: inherit
+
+  publish-deepcl-wgpu:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-wgpu
+    needs:
+      - publish-deepcl-std
+      - publish-deepcl-spirv
+      - publish-deepcl-common
+      - publish-deepcl-runtime
+      - publish-deepcl-core
+      - publish-deepcl-matmul
+      - publish-deepcl-convolution
+      - publish-deepcl-reduce
+    secrets: inherit
+
+  publish-deepcl-cpp:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-cpp
+    needs:
+      - publish-deepcl-common
+      - publish-deepcl-runtime
+      - publish-deepcl-core
+    secrets: inherit
+
+  publish-deepcl-cuda:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-cuda
+    needs:
+      - publish-deepcl-std
+      - publish-deepcl-cpp
+      - publish-deepcl-common
+      - publish-deepcl-runtime
+      - publish-deepcl-core
+      - publish-deepcl-matmul
+      - publish-deepcl-convolution
+      - publish-deepcl-reduce
+    secrets: inherit
+
+  publish-deepcl-hip:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl-hip
+    needs:
+      - publish-deepcl-std
+      - publish-deepcl-cpp
+      - publish-deepcl-common
+      - publish-deepcl-runtime
+      - publish-deepcl-core
+      - publish-deepcl-matmul
+      - publish-deepcl-convolution
+      - publish-deepcl-reduce
+    secrets: inherit
+
+  publish-deepcl:
+    uses: kothagpt/deepcode/.github/workflows/publish-template.yml@main
+    with:
+      crate: deepcl
+    needs:
+      - publish-deepcl-core
+      - publish-deepcl-cuda
+      - publish-deepcl-wgpu
+      - publish-deepcl-matmul
+      - publish-deepcl-convolution
+      - publish-deepcl-reduce
+    secrets: inherit

@@ -1,0 +1,17 @@
+[package]
+name = "pytorch-tests"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dev-dependencies]
+deepcode = { path = "../../deepcode" }
+deepcode-ndarray = { path = "../../deepcode-ndarray" }
+deepcode-autodiff = { path = "../../deepcode-autodiff" }
+serde = { workspace = true }
+float-cmp = { workspace = true }
+deepcode-import = { path = "../", features = ["pytorch"] }
+
+
+[build-dependencies]
+deepcode-import = { path = "../", features = ["pytorch"] }
