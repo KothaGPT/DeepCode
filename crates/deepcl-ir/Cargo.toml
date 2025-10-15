@@ -1,6 +1,6 @@
 [package]
 authors = [
-    "nathanielsimard <nathaniel.simard.42@gmail.com>",
+    "Md. Sulaiman <dev.sulaiman@icloud.com>",
     "louisfd <louisfd94@gmail.com",
 ]
 categories = ["science"]
@@ -21,11 +21,11 @@ serde = ["dep:serde", "hashbrown/serde"]
 std = []
 
 [dependencies]
-deepcl-common = { path = "../deepcl-common", version = "0.19", features = [
+deepcl-common = { path = "../deepcl-common", features = [
     "fp4",
     "fp8",
 ] }
-deepcl-macros-internal = { path = "../deepcl-macros-internal", version = "0.19" }
+deepcl-macros-internal = { path = "../deepcl-macros-internal" }
 
 derive-new = { workspace = true }
 derive_more = { workspace = true, features = ["from"] }

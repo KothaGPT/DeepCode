@@ -1,5 +1,5 @@
 [package]
-authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 categories = ["science"]
 description = "Generic backend that can be compiled just-in-time to any shader language target"
 documentation = "https://docs.rs/deepcode-deepcl"

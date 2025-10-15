@@ -1,6 +1,6 @@
 [package]
 authors = [
-    "nathanielsimard <nathaniel.simard.42@gmail.com>",
+    "Md. Sulaiman <dev.sulaiman@icloud.com>",
     "louisfd <louisfd94@gmail.com>",
 ]
 categories = ["science", "mathematics", "algorithms"]
@@ -20,15 +20,15 @@ std = ["deepcl-runtime/std"]
 template = []
 
 [dependencies]
-deepcl-ir = { path = "../deepcl-ir", version = "0.1.0", default-features = false, features = [
+deepcl-ir = { path = "../deepcl-ir", default-features = false, features = [
     "serde",
 ] }
-deepcl-runtime = { path = "../deepcl-runtime", version = "0.1.0", default-features = false }
+deepcl-runtime = { path = "../deepcl-runtime", default-features = false }
 
 bitflags = { workspace = true }
 bytemuck = { workspace = true }
-deepcl-common = { path = "../deepcl-common", version = "0.1.0", default-features = false }
-deepcl-macros = { path = "../deepcl-macros", version = "0.1.0", default-features = false }
+deepcl-common = { path = "../deepcl-common", default-features = false }
+deepcl-macros = { path = "../deepcl-macros", default-features = false }
 derive-new = { workspace = true }
 derive_more = { workspace = true, features = [
     "not",

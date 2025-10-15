@@ -73,20 +73,20 @@ matmul_tests_all = [
 conv_tests = ["deepcl-convolution/conv_tests"]
 
 [dependencies]
-deepcl-common = { path = "../deepcl-common", version = "0.1.0", default-features = false }
-deepcl-std = { path = "../deepcl-std", version = "0.1.0", default-features = false }
-deepcl-core = { path = "../deepcl-core", version = "0.1.0", default-features = false }
-deepcl-runtime = { path = "../deepcl-runtime", version = "0.1.0", default-features = false, features = [
+deepcl-common = { path = "../deepcl-common", default-features = false }
+deepcl-std = { path = "../deepcl-std", default-features = false }
+deepcl-core = { path = "../deepcl-core", default-features = false }
+deepcl-runtime = { path = "../deepcl-runtime", default-features = false, features = [
     "channel-mutex",
 ] }
-deepcl-opt = { path = "../deepcl-opt", version = "0.1.0", default-features = false }
-deepcl-matmul = { path = "../deepcl-matmul", version = "0.1.0", features = [
+deepcl-opt = { path = "../deepcl-opt", default-features = false }
+deepcl-matmul = { path = "../deepcl-matmul", features = [
     "export_tests",
 ] }
-deepcl-convolution = { path = "../deepcl-convolution", version = "0.1.0", features = [
+deepcl-convolution = { path = "../deepcl-convolution", features = [
     "export_tests",
 ] }
-deepcl-reduce = { path = "../deepcl-reduce", version = "0.1.0", features = [
+deepcl-reduce = { path = "../deepcl-reduce", features = [
     "export_tests",
 ] }
 
@@ -99,16 +99,16 @@ sysinfo = { workspace = true }
 tracel-llvm = { workspace = true }
 
 [dev-dependencies]
-deepcl-core = { path = "../deepcl-core", version = "0.1.0", features = [
+deepcl-core = { path = "../deepcl-core", features = [
     "export_tests",
 ] }
-deepcl-reduce = { path = "../deepcl-reduce", version = "0.1.0", features = [
+deepcl-reduce = { path = "../deepcl-reduce", features = [
     "export_tests",
 ] }
-deepcl-random = { path = "../deepcl-random", version = "0.1.0", features = [
+deepcl-random = { path = "../deepcl-random", features = [
     "export_tests",
 ] }
-deepcl-std = { path = "../deepcl-std", version = "0.1.0", features = [
+deepcl-std = { path = "../deepcl-std", features = [
     "export_tests",
 ] }
 paste = { workspace = true }

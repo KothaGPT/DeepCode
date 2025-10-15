@@ -11,7 +11,7 @@ use alloc::{
     string::{String, ToString},
     vec::Vec,
 };
-use derive_more::derive::From;
+use derive_more::From;
 
 /// All operations that can be used in a GPU compute shader.
 ///

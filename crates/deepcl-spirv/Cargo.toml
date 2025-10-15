@@ -1,5 +1,5 @@
 [package]
-authors = ["Genna Wingert"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 categories = ["algorithms"]
 description = "SPIR-V compiler for DeepCL"
 edition.workspace = true

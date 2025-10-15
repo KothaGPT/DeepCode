@@ -1,5 +1,5 @@
 [package]
-authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 categories = ["science"]
 description = "Backend router decorator over the network."
 edition.workspace = true

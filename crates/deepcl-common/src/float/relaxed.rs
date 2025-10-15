@@ -1,13 +1,11 @@
 use core::f32;
 use core::{
     cmp::Ordering,
-    ops::{Div, DivAssign, Mul, MulAssign, Rem, RemAssign},
+    ops::{Add, Sub, Div, DivAssign, Mul, MulAssign, Rem, RemAssign, Neg, AddAssign, SubAssign},
 };
 
 use bytemuck::{Pod, Zeroable};
-use derive_more::derive::{
-    Add, AddAssign, Display, Div, DivAssign, Mul, MulAssign, Neg, Rem, RemAssign, Sub, SubAssign,
-};
+use derive_more::Display;
 use num_traits::{Num, NumCast, One, ToPrimitive, Zero};
 
 /// A floating point type with relaxed precision, minimum [`f16`], max [`f32`].
@@ -23,17 +21,6 @@ use num_traits::{Num, NumCast, One, ToPrimitive, Zero};
     Pod,
     PartialEq,
     PartialOrd,
-    Neg,
-    Add,
-    Sub,
-    Mul,
-    Div,
-    Rem,
-    AddAssign,
-    SubAssign,
-    MulAssign,
-    DivAssign,
-    RemAssign,
     Debug,
     Display,
 )]
@@ -71,6 +58,42 @@ impl flex32 {
     /// Whether this flex32 represents `NaN`
     pub fn is_nan(&self) -> bool {
         self.0.is_nan()
+    }
+}
+
+impl Add for flex32 {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        flex32(self.0 + other.0)
+    }
+}
+
+impl Sub for flex32 {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self {
+        flex32(self.0 - other.0)
+    }
+}
+
+impl Neg for flex32 {
+    type Output = Self;
+
+    fn neg(self) -> Self {
+        flex32(-self.0)
+    }
+}
+
+impl AddAssign for flex32 {
+    fn add_assign(&mut self, other: Self) {
+        self.0 += other.0;
+    }
+}
+
+impl SubAssign for flex32 {
+    fn sub_assign(&mut self, other: Self) {
+        self.0 -= other.0;
     }
 }
 
@@ -371,14 +394,6 @@ impl num_traits::Float for flex32 {
     }
 }
 
-impl Num for flex32 {
-    type FromStrRadixErr = <f32 as Num>::FromStrRadixErr;
-
-    fn from_str_radix(str: &str, radix: u32) -> Result<Self, Self::FromStrRadixErr> {
-        Ok(flex32(f32::from_str_radix(str, radix)?))
-    }
-}
-
 impl One for flex32 {
     fn one() -> Self {
         flex32(1.0)
@@ -392,5 +407,13 @@ impl Zero for flex32 {
 
     fn is_zero(&self) -> bool {
         self.0 == 0.0
+    }
+}
+
+impl Num for flex32 {
+    type FromStrRadixErr = <f32 as Num>::FromStrRadixErr;
+
+    fn from_str_radix(str: &str, radix: u32) -> Result<Self, Self::FromStrRadixErr> {
+        Ok(flex32(f32::from_str_radix(str, radix)?))
     }
 }

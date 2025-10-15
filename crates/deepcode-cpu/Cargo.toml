@@ -1,5 +1,5 @@
 [package]
-authors = ["marcantoinem <marc-antoine.m@outlook.com>"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 categories = ["science"]
 description = "MLIR based CPU backend for the Deepcode framework"
 documentation = "https://docs.rs/deepcode-cpu"

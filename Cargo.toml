@@ -5,26 +5,26 @@
 resolver = "2"
 
 members = [
-    "deepcl/crates/deepcl",
-    "deepcl/crates/deepcl-attention",
-    "deepcl/crates/deepcl-common",
-    "deepcl/crates/deepcl-convolution",
-    "deepcl/crates/deepcl-core",
-    "deepcl/crates/deepcl-cpp",
-    "deepcl/crates/deepcl-cpu",
-    "deepcl/crates/deepcl-cuda",
-    "deepcl/crates/deepcl-ir",
-    "deepcl/crates/deepcl-macros",
-    "deepcl/crates/deepcl-macros-internal",
-    "deepcl/crates/deepcl-matmul",
-    "deepcl/crates/deepcl-opt",
-    "deepcl/crates/deepcl-quant",
-    "deepcl/crates/deepcl-random",
-    "deepcl/crates/deepcl-reduce",
-    "deepcl/crates/deepcl-runtime",
-    "deepcl/crates/deepcl-spirv",
-    "deepcl/crates/deepcl-std",
-    "deepcl/crates/deepcl-wgpu",
+    "crates/deepcl",
+    "crates/deepcl-attention",
+    "crates/deepcl-common",
+    "crates/deepcl-convolution",
+    "crates/deepcl-core",
+    "crates/deepcl-cpp",
+    "crates/deepcl-cpu",
+    "crates/deepcl-cuda",
+    "crates/deepcl-ir",
+    "crates/deepcl-macros",
+    "crates/deepcl-macros-internal",
+    "crates/deepcl-matmul",
+    "crates/deepcl-opt",
+    "crates/deepcl-quant",
+    "crates/deepcl-random",
+    "crates/deepcl-reduce",
+    "crates/deepcl-runtime",
+    "crates/deepcl-spirv",
+    "crates/deepcl-std",
+    "crates/deepcl-wgpu",
     "xtask",
 ]
 
@@ -165,9 +165,9 @@ smallvec = "1.14.0"
 ash = "0.38.0"
 tracel-ash = "0.38.0"
 rspirv = "0.12.0"
-deepcl = { path = "deepcl/crates/deepcl", default-features = false }
-deepcl-common = { path = "deepcl/crates/deepcl-common", default-features = false }
-deepcl-quant = { path = "deepcl/crates/deepcl-quant", default-features = false }
+deepcl = { path = "crates/deepcl", default-features = false }
+deepcl-common = { path = "crates/deepcl-common", default-features = false }
+deepcl-quant = { path = "crates/deepcl-quant", default-features = false }
 
 # no_std compatiblity
 foldhash = { version = "0.1.2", default-features = false }

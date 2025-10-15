@@ -1,5 +1,5 @@
 [package]
-authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 categories = ["science", "mathematics", "algorithms"]
 description = "Multi-platform high-performance compute language extension for Rust."
 edition.workspace = true
@@ -47,17 +47,17 @@ wgpu-spirv = ["wgpu", "deepcl-wgpu/spirv"]
 spirv-dump = ["deepcl-wgpu/spirv-dump"]
 
 [dependencies]
-deepcl-convolution = { path = "../deepcl-convolution", version = "0.1.0", default-features = false, optional = true }
-deepcl-core = { path = "../deepcl-core", version = "0.1.0", default-features = false }
-deepcl-cpu = { path = "../deepcl-cpu", version = "0.1.0", default-features = false, optional = true }
-deepcl-cuda = { path = "../deepcl-cuda", version = "0.1.0", default-features = false, optional = true }
-deepcl-hip = { path = "../deepcl-hip", version = "0.1.0", default-features = false, optional = true }
-deepcl-matmul = { path = "../deepcl-matmul", version = "0.1.0", default-features = false, optional = true }
-deepcl-random = { path = "../deepcl-random", version = "0.1.0", default-features = false, optional = true }
-deepcl-reduce = { path = "../deepcl-reduce", version = "0.1.0", default-features = false, optional = true }
-deepcl-runtime = { path = "../deepcl-runtime", version = "0.1.0", default-features = false }
-deepcl-std = { path = "../deepcl-std", version = "0.1.0", optional = true }
-deepcl-wgpu = { path = "../deepcl-wgpu", version = "0.1.0", default-features = false, optional = true }
+deepcl-convolution = { path = "../deepcl-convolution", default-features = false, optional = true }
+deepcl-core = { path = "../deepcl-core", default-features = false }
+deepcl-cpu = { path = "../deepcl-cpu", default-features = false, optional = true }
+deepcl-cuda = { path = "../deepcl-cuda", default-features = false, optional = true }
+deepcl-hip = { path = "../deepcl-hip", default-features = false, optional = true }
+deepcl-matmul = { path = "../deepcl-matmul", default-features = false, optional = true }
+deepcl-random = { path = "../deepcl-random", default-features = false, optional = true }
+deepcl-reduce = { path = "../deepcl-reduce", default-features = false, optional = true }
+deepcl-runtime = { path = "../deepcl-runtime", default-features = false }
+deepcl-std = { path = "../deepcl-std", optional = true }
+deepcl-wgpu = { path = "../deepcl-wgpu", default-features = false, optional = true }
 half = { workspace = true }
 
 [[bench]]

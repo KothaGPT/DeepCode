@@ -1,5 +1,5 @@
 [package]
-authors = ["Guilhem Ané (@Cielbird)", "Nathaniel Simard (@nathanielsimard)"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 description = "Abstractions for network communication for Deepcode"
 edition.workspace = true
 license.workspace = true

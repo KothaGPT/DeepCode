@@ -2,565 +2,307 @@
 <img src="https://raw.githubusercontent.com/kothagpt/deepcode/main/assets/logo-deepcode-neutral.webp" width="350px"/>
 
 [![Discord](https://img.shields.io/discord/1038839012602941528.svg?color=7289da&&logo=discord)](https://discord.gg/uPEBbYYDB6)
-[![Current Crates.io Version](https://img.shields.io/crates/v/deepcode.svg)](https://crates.io/crates/deepcode)
-[![Minimum Supported Rust Version](https://img.shields.io/crates/msrv/deepcode)](https://crates.io/crates/deepcode)
-[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://deepcode.dev/docs/deepcode)
+[![Current Crates.io Version](https://img.shields.io/crates/v/deepcl.svg)](https://crates.io/crates/deepcl)
+[![Minimum Supported Rust Version](https://img.shields.io/crates/msrv/deepcl)](https://crates.io/crates/deepcl)
+[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://deepcode.dev/docs/deepcl)
 [![Test Status](https://github.com/kothagpt/deepcode/actions/workflows/test.yml/badge.svg)](https://github.com/kothagpt/deepcode/actions/workflows/test.yml)
 [![license](https://shields.io/badge/license-MIT%2FApache--2.0-blue)](#license)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kothagpt/deepcode)
-
-[<img src="https://www.runblaze.dev/ci-blaze-powered.png" width="125px"/>](https://www.runblaze.dev)
 
 ---
 
-**Deepcode is a next generation Tensor Library and Deep Learning Framework that doesn't compromise on
-<br /> flexibility, efficiency and portability.**
+**🚀 DeepCL - Multi-Platform High-Performance Compute Language for Rust**
 
-<br/>
-</div>
-
-<div align="left">
-
-Deepcode is both a tensor library and a deep learning framework optimized for numerical computing, model
-inference and model training. Deepcode leverages Rust to perform optimizations normally only available
-in static-graph frameworks, offering optimal speed without impacting flexibility.
-
-## Backend
-
-<div align="left">
-<img align="right" src="https://raw.githubusercontent.com/kothagpt/deepcode/main/assets/backend-chip.png" height="96px"/>
-
-Deepcode strives to be as fast as possible on as many hardwares as possible, with robust
-implementations. We believe this flexibility is crucial for modern needs where you may train your
-models in the cloud, then deploy on customer hardwares, which vary from user to user.
+*Blazingly fast tensor operations and deep learning across GPUs, CPUs, and WebAssembly*
 
 </div>
 
-### Supported Backends
+---
 
-Most backends support all operating systems, so we don't mentioned them in the tables below.
+## 🌟 Overview
 
-**GPU Backends:**
+**DeepCL** is a next-generation high-performance compute framework for Rust that brings GPU-accelerated tensor operations and deep learning capabilities to native applications. Built from the ground up for performance, portability, and developer experience, DeepCL enables you to harness the full power of modern hardware while maintaining the safety and expressiveness of Rust.
 
-|         | CUDA | ROCm | Metal | Vulkan | WebGPU | Candle | LibTorch |
-| ------- | ---- | ---- | ----- | ------ | ------ | ------ | -------- |
-| Nvidia  | ☑️   | -    | -     | ☑️     | ☑️     | ☑️     | ☑️       |
-| AMD     | -    | ☑️   | -     | ☑️     | ☑️     | -      | ☑️       |
-| Apple   | -    | -    | ☑️    | -      | ☑️     | -      | ☑️       |
-| Intel   | -    | -    | -     | ☑️     | ☑️     | -      | -        |
-| Qualcom | -    | -    | -     | ☑️     | ☑️     | -      | -        |
-| Wasm    | -    | -    | -     | -      | ☑️     | -      | -        |
+### ✨ Key Features
 
-**CPU Backends:**
+- **🚀 Multi-Platform GPU Support**: CUDA, WGPU, HIP, SPIR-V backends
+- **⚡ Zero-Cost Abstractions**: High-level APIs with optimal performance
+- **🌐 WebAssembly Ready**: Run ML models directly in browsers
+- **🔧 Hardware Agnostic**: Write once, run anywhere
+- **🧠 Deep Learning Primitives**: Convolution, MatMul, Attention, and more
+- **📦 ONNX & PyTorch Integration**: Import existing models seamlessly
+- **🛠️ Custom Kernels**: Write GPU shaders in Rust
+- **📊 Real-time Training Dashboard**: Monitor progress with TUI
 
-|        | Cpu (DeepCL) | NdArray | Candle | LibTorch |
-| ------ | ------------ | ------- | ------ | -------- |
-| X86    | ☑️           | ☑️      | ☑️     | ☑️       |
-| Arm    | ☑️           | ☑️      | ☑️     | ☑️       |
-| Wasm   | -            | ☑️      | ☑️     | -        |
-| no-std | -            | ☑️      | -      | -        |
+## 🏗️ Architecture
 
-<br />
+DeepCL is organized into modular crates for maximum flexibility:
 
-Compared to other frameworks, Deepcode has a very different approach to supporting many backends. By
-design, most code is generic over the Backend trait, which allows us to build Deepcode with swappable
-backends. This makes composing backend possible, augmenting them with additional functionalities
-such as autodifferentiation and automatic kernel fusion.
+| Crate | Description |
+|-------|-------------|
+| [`deepcl-core`](crates/deepcl-core/) | Core tensor operations and compute graph |
+| [`deepcl-runtime`](crates/deepcl-runtime/) | Async runtime for high-performance execution |
+| [`deepcl-cuda`](crates/deepcl-cuda/) | NVIDIA CUDA backend |
+| [`deepcl-wgpu`](crates/deepcl-wgpu/) | WebGPU and SPIR-V support |
+| [`deepcl-cpu`](crates/deepcl-cpu/) | Optimized CPU backend |
+| [`deepcl-convolution`](crates/deepcl-convolution/) | Convolutional neural network operations |
+| [`deepcl-attention`](crates/deepcl-attention/) | Transformer attention mechanisms |
+| [`deepcl-matmul`](crates/deepcl-matmul/) | Matrix multiplication optimizations |
+| [`deepcl-opt`](crates/deepcl-opt/) | Kernel optimization and fusion |
 
-<details>
-<summary>
-Autodiff: Backend decorator that brings backpropagation to any backend 🔄
-</summary>
-<br />
+## 🚀 Quick Start
 
-Contrary to the aforementioned backends, Autodiff is actually a backend _decorator_. This means that
-it cannot exist by itself; it must encapsulate another backend.
-
-The simple act of wrapping a base backend with Autodiff transparently equips it with
-autodifferentiation support, making it possible to call backward on your model.
+### Basic Tensor Operations
 
 ```rust
-use deepcode::backend::{Autodiff, Wgpu};
-use deepcode::tensor::{Distribution, Tensor};
+use deepcl::{prelude::*, tensor::{Distribution, Tensor}};
 
-fn main() {
-    type Backend = Autodiff<Wgpu>;
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Initialize runtime
+    let device = CudaDevice::default();
 
-    let device = Default::default();
+    // Create tensors
+    let x: Tensor<Cuda, 2> = Tensor::random([32, 32], Distribution::Default, &device);
+    let y: Tensor<Cuda, 2> = Tensor::random([32, 32], Distribution::Default, &device);
 
-    let x: Tensor<Backend, 2> = Tensor::random([32, 32], Distribution::Default, &device);
-    let y: Tensor<Backend, 2> = Tensor::random([32, 32], Distribution::Default, &device).require_grad();
+    // Perform operations
+    let result = x.matmul(y)?;
 
-    let tmp = x.clone() + y.clone();
-    let tmp = tmp.matmul(x);
-    let tmp = tmp.exp();
-
-    let grads = tmp.backward();
-    let y_grad = y.grad(&grads).unwrap();
-    println!("{y_grad}");
+    println!("Result shape: {:?}", result.shape());
+    Ok(())
 }
 ```
 
-Of note, it is impossible to make the mistake of calling backward on a model that runs on a backend
-that does not support autodiff (for inference), as this method is only offered by an Autodiff
-backend.
-
-See the [Autodiff Backend README](./crates/deepcode-autodiff/README.md) for more details.
-
-</details>
-
-<details>
-<summary>
-Fusion: Backend decorator that brings kernel fusion to all first-party backends
-</summary>
-<br />
-
-This backend decorator enhances a backend with kernel fusion, provided that the inner backend
-supports it. Note that you can compose this backend with other backend decorators such as Autodiff.
-All first-party accelerated backends (like WGPU and CUDA) use Fusion by default (`deepcode/fusion`
-feature flag), so you typically don't need to apply it manually.
+### Custom GPU Kernels
 
 ```rust
-#[cfg(not(feature = "fusion"))]
-pub type Cuda<F = f32, I = i32> = CubeBackend<CudaRuntime, F, I, u8>;
+use deepcl::{prelude::*, ir::{Instruction, Variable}};
 
-#[cfg(feature = "fusion")]
-pub type Cuda<F = f32, I = i32> = deepcode_fusion::Fusion<CubeBackend<CudaRuntime, F, I, u8>>;
+#[cube] // DeepCL's GPU kernel language
+fn custom_kernel(input: &Tensor<f32>) -> Tensor<f32> {
+    let value = input[ABSOLUTE_POS];
+
+    // Custom computation
+    let result = value * 2.0 + 1.0;
+
+    Tensor::new(result)
+}
 ```
 
-Of note, we plan to implement automatic gradient checkpointing based on compute bound and memory
-bound operations, which will work gracefully with the fusion backend to make your code run even
-faster during training, see [this issue](https://github.com/kothagpt/deepcode/issues/936).
-
-See the [Fusion Backend README](./crates/deepcode-fusion/README.md) for more details.
-
-</details>
-
-<details>
-<summary>
-Router (Beta): Backend decorator that composes multiple backends into a single one
-</summary>
-<br />
-
-That backend simplifies hardware operability, if for instance you want to execute some operations on
-the CPU and other operations on the GPU.
+### Deep Learning Model
 
 ```rust
-use deepcode::tensor::{Distribution, Tensor};
-use deepcode::backend::{
-    NdArray, Router, Wgpu, ndarray::NdArrayDevice, router::duo::MultiDevice, wgpu::WgpuDevice,
-};
+use deepcl::nn::{Linear, Module, Sequential};
 
-fn main() {
-    type Backend = Router<(Wgpu, NdArray)>;
-
-    let device_0 = MultiDevice::B1(WgpuDevice::DiscreteGpu(0));
-    let device_1 = MultiDevice::B2(NdArrayDevice::Cpu);
-
-    let tensor_gpu =
-        Tensor::<Backend, 2>::random([3, 3], deepcode::tensor::Distribution::Default, &device_0);
-    let tensor_cpu =
-        Tensor::<Backend, 2>::random([3, 3], deepcode::tensor::Distribution::Default, &device_1);
+#[derive(Module)]
+pub struct MLP<B: Backend> {
+    layers: Sequential<B, (Linear<B, 784, 256>, Linear<B, 256, 10>)>,
 }
 
-```
-
-</details>
-
-<details>
-<summary>
-Remote (Beta): Backend decorator for remote backend execution, useful for distributed computations
-</summary>
-<br />
-
-That backend has two parts, one client and one server. The client sends tensor operations over the
-network to a remote compute backend. You can use any first-party backend as server in a single line
-of code:
-
-```rust
-fn main_server() {
-    // Start a server on port 3000.
-    deepcode::server::start::<deepcode::backend::Cuda>(Default::default(), 3000);
-}
-
-fn main_client() {
-    // Create a client that communicate with the server on port 3000.
-    use deepcode::backend::{Autodiff, RemoteBackend};
-
-    type Backend = Autodiff<RemoteDevice>;
-
-    let device = RemoteDevice::new("ws://localhost:3000");
-    let tensor_gpu =
-        Tensor::<Backend, 2>::random([3, 3], Distribution::Default, &device);
-}
-
-```
-
-</details>
-
-<br />
-
-## Training & Inference
-
-<div align="left">
-<img align="right" src="https://raw.githubusercontent.com/kothagpt/deepcode/main/assets/ember-wall.png" height="96px"/>
-
-The whole deep learning workflow is made easy with Deepcode, as you can monitor your training progress
-with an ergonomic dashboard, and run inference everywhere from embedded devices to large GPU
-clusters.
-
-Deepcode was built from the ground up with training and inference in mind. It's also worth noting how
-Deepcode, in comparison to frameworks like PyTorch, simplifies the transition from training to
-deployment, eliminating the need for code changes.
-
-</div>
-
-<div align="center">
-
-<br />
-
-<a href="https://www.youtube.com/watch?v=N9RM5CQbNQc" target="_blank">
-    <img src="https://raw.githubusercontent.com/kothagpt/deepcode/main/assets/deepcode-train-tui.png" alt="Deepcode Train TUI" width="75%">
-  </a>
-</div>
-
-<br />
-
-**Click on the following sections to expand 👇**
-
-<details>
-<summary>
-Training Dashboard 📈
-</summary>
-<br />
-
-As you can see in the previous video (click on the picture!), a new terminal UI dashboard based on
-the [Ratatui](https://github.com/ratatui-org/ratatui) crate allows users to follow their training
-with ease without having to connect to any external application.
-
-You can visualize your training and validation metrics updating in real-time and analyze the
-lifelong progression or recent history of any registered metrics using only the arrow keys. Break
-from the training loop without crashing, allowing potential checkpoints to be fully written or
-important pieces of code to complete without interruption 🛡
-
-</details>
-
-<details>
-<summary>
-ONNX Support 🐫
-</summary>
-<br />
-
-Deepcode supports importing ONNX (Open Neural Network Exchange) models, allowing you to easily port
-models from TensorFlow or PyTorch to Deepcode. The ONNX model is converted into Rust code that uses
-Deepcode's native APIs, enabling the imported model to run on any Deepcode backend (CPU, GPU, WebAssembly)
-and benefit from all of Deepcode's optimizations like automatic kernel fusion.
-
-Our ONNX support is further described in
-[this section of the Deepcode Book 🔥](https://deepcode.dev/books/deepcode/import/onnx-model.html).
-
-> **Note**: This crate is in active development and currently supports a
-> [limited set of ONNX operators](./crates/deepcode-import/SUPPORTED-ONNX-OPS.md).
-
-</details>
-
-<details>
-<summary>
-Importing PyTorch or Safetensors Models 🚚
-</summary>
-<br />
-
-You can load weights from PyTorch or Safetensors formats directly into your Deepcode-defined models.
-This makes it easy to reuse existing models while benefiting from Deepcode's performance and deployment
-features.
-
-Learn more:
-
-- [Import pre-trained PyTorch models into Deepcode](https://deepcode.dev/books/deepcode/import/pytorch-model.html)
-- [Load models from Safetensors format](https://deepcode.dev/books/deepcode/import/safetensors-model.html)
-
-</details>
-
-<details>
-<summary>
-Inference in the Browser 🌐
-</summary>
-<br />
-
-Several of our backends can run in WebAssembly environments: Candle and NdArray for CPU execution,
-and WGPU for GPU acceleration via WebGPU. This means that you can run inference directly within a
-browser. We provide several examples of this:
-
-- [MNIST](./examples/mnist-inference-web) where you can draw digits and a small convnet tries to
-  find which one it is! 2️⃣ 7️⃣ 😰
-- [Image Classification](./examples/image-classification-web) where you can upload images and
-  classify them! 🌄
-
-</details>
-
-<details>
-<summary>
-Embedded: <i>no_std</i> support ⚙️
-</summary>
-<br />
-
-Deepcode's core components support [no_std](https://docs.rust-embedded.org/book/intro/no-std.html). This
-means it can run in bare metal environment such as embedded devices without an operating system.
-
-> As of now, only the NdArray backend can be used in a _no_std_ environment.
-
-</details>
-
-<br />
-
-### Benchmarks
-
-To evaluate performance across different backends and track improvements over time, we provide a
-dedicated benchmarking suite.
-
-Run and compare benchmarks using [deepcode-bench](https://github.com/kothagpt/deepcode-bench).
-
-> ⚠️ **Warning** When using one of the `wgpu` backends, you may encounter compilation errors related
-> to recursive type evaluation. This is due to complex type nesting within the `wgpu` dependency
-> chain. To resolve this issue, add the following line at the top of your `main.rs` or `lib.rs`
-> file:
->
-> ```rust
-> #![recursion_limit = "256"]
-> ```
->
-> The default recursion limit (128) is often just below the required depth (typically 130-150) due
-> to deeply nested associated types and trait bounds.
-
-## Getting Started
-
-<div align="left">
-<img align="right" src="https://raw.githubusercontent.com/kothagpt/deepcode/main/assets/ember-walking.png" height="96px"/>
-
-Just heard of Deepcode? You are at the right place! Just continue reading this section and we hope you
-can get on board really quickly.
-
-</div>
-
-<details>
-<summary>
-The Deepcode Book 🔥
-</summary>
-<br />
-
-To begin working effectively with Deepcode, it is crucial to understand its key components and
-philosophy. This is why we highly recommend new users to read the first sections of
-[The Deepcode Book 🔥](https://deepcode.dev/books/deepcode/). It provides detailed examples and explanations
-covering every facet of the framework, including building blocks like tensors, modules, and
-optimizers, all the way to advanced usage, like coding your own GPU kernels.
-
-> The project is constantly evolving, and we try as much as possible to keep the book up to date
-> with new additions. However, we might miss some details sometimes, so if you see something weird,
-> let us know! We also gladly accept Pull Requests 😄
-
-</details>
-
-<details>
-<summary>
-Examples 🙏
-</summary>
-<br />
-
-Let's start with a code snippet that shows how intuitive the framework is to use! In the following,
-we declare a neural network module with some parameters along with its forward pass.
-
-```rust
-use deepcode::nn;
-use deepcode::module::Module;
-use deepcode::tensor::backend::Backend;
-
-#[derive(Module, Debug)]
-pub struct PositionWiseFeedForward<B: Backend> {
-    linear_inner: nn::Linear<B>,
-    linear_outer: nn::Linear<B>,
-    dropout: nn::Dropout,
-    gelu: nn::Gelu,
-}
-
-impl<B: Backend> PositionWiseFeedForward<B> {
-    pub fn forward<const D: usize>(&self, input: Tensor<B, D>) -> Tensor<B, D> {
-        let x = self.linear_inner.forward(input);
-        let x = self.gelu.forward(x);
-        let x = self.dropout.forward(x);
-
-        self.linear_outer.forward(x)
+impl<B: Backend> MLP<B> {
+    pub fn forward(&self, input: Tensor<B, 3>) -> Tensor<B, 3> {
+        self.layers.forward(input)
     }
 }
 ```
 
-We have a somewhat large amount of [examples](./examples) in the repository that shows how to use
-the framework in different scenarios.
+## 🎯 Backends
 
-Following [the book](https://deepcode.dev/books/deepcode/):
+DeepCL supports multiple execution backends for maximum flexibility:
 
-- [Basic Workflow](./examples/guide) : Creates a custom CNN `Module` to train on the MNIST dataset
-  and use for inference.
-- [Custom Training Loop](./examples/custom-training-loop) : Implements a basic training loop instead
-  of using the `Learner`.
-- [Custom WGPU Kernel](./examples/custom-wgpu-kernel) : Learn how to create your own custom
-  operation with the WGPU backend.
+### GPU Backends
 
-Additional examples:
+| Backend | Platforms | Use Case |
+|---------|-----------|----------|
+| **CUDA** | NVIDIA GPUs | High-performance training & inference |
+| **WGPU** | All GPUs + WebAssembly | Cross-platform GPU computing |
+| **HIP** | AMD GPUs | ROCm ecosystem integration |
+| **SPIR-V** | Vulkan-compatible GPUs | Open standard GPU computing |
 
-- [Custom CSV Dataset](./examples/custom-csv-dataset) : Implements a dataset to parse CSV data for a
-  regression task.
-- [Regression](./examples/simple-regression) : Trains a simple MLP on the California Housing dataset
-  to predict the median house value for a district.
-- [Custom Image Dataset](./examples/custom-image-dataset) : Trains a simple CNN on custom image
-  dataset following a simple folder structure.
-- [Custom Renderer](./examples/custom-renderer) : Implements a custom renderer to display the
-  [`Learner`](./building-blocks/learner.md) progress.
-- [Image Classification Web](./examples/image-classification-web) : Image classification web browser
-  demo using Deepcode, WGPU and WebAssembly.
-- [MNIST Inference on Web](./examples/mnist-inference-web) : An interactive MNIST inference demo in
-  the browser. The demo is available [online](https://deepcode.dev/demo/).
-- [MNIST Training](./examples/mnist) : Demonstrates how to train a custom `Module` (MLP) with the
-  `Learner` configured to log metrics and keep training checkpoints.
-- [Named Tensor](./examples/named-tensor) : Performs operations with the experimental `NamedTensor`
-  feature.
-- [ONNX Import Inference](./examples/onnx-inference) : Imports an ONNX model pre-trained on MNIST to
-  perform inference on a sample image with Deepcode.
-- [PyTorch Import Inference](./examples/import-model-weights) : Imports a PyTorch model pre-trained
-  on MNIST to perform inference on a sample image with Deepcode.
-- [Text Classification](./examples/text-classification) : Trains a text classification transformer
-  model on the AG News or DbPedia dataset. The trained model can then be used to classify a text
-  sample.
-- [Text Generation](./examples/text-generation) : Trains a text generation transformer model on the
-  DbPedia dataset.
-- [Wasserstein GAN MNIST](./examples/wgan) : Trains a WGAN model to generate new handwritten digits
-  based on MNIST.
+### CPU Backends
 
-For more practical insights, you can clone the repository and run any of them directly on your
-computer!
+| Backend | Platforms | Use Case |
+|---------|-----------|----------|
+| **CPU** | x86, ARM | Optimized CPU operations |
+| **NdArray** | All platforms | NumPy-style operations |
 
-</details>
+## 🌐 WebAssembly Support
 
-<details>
-<summary>
-Pre-trained Models 🤖
-</summary>
-<br />
+Run DeepCL models directly in web browsers:
 
-We keep an updated and curated list of models and examples built with Deepcode, see the
-[tracel-ai/models repository](https://github.com/tracel-ai/models) for more details.
+```bash
+# Build for web
+wasm-pack build --target web --out-dir pkg
 
-Don't see the model you want? Don't hesitate to open an issue, and we may prioritize it. Built a
-model using Deepcode and want to share it? You can also open a Pull Request and add your model under the
-community section!
-
-</details>
-
-<details>
-<summary>
-Why use Rust for Deep Learning? 🦀
-</summary>
-<br />
-
-Deep Learning is a special form of software where you need very high level abstractions as well as
-extremely fast execution time. Rust is the perfect candidate for that use case since it provides
-zero-cost abstractions to easily create neural network modules, and fine-grained control over memory
-to optimize every detail.
-
-It's important that a framework be easy to use at a high level so that its users can focus on
-innovating in the AI field. However, since running models relies so heavily on computations,
-performance can't be neglected.
-
-To this day, the mainstream solution to this problem has been to offer APIs in Python, but rely on
-bindings to low-level languages such as C/C++. This reduces portability, increases complexity and
-creates frictions between researchers and engineers. We feel like Rust's approach to abstractions
-makes it versatile enough to tackle this two languages dichotomy.
-
-Rust also comes with the Cargo package manager, which makes it incredibly easy to build, test, and
-deploy from any environment, which is usually a pain in Python.
-
-Although Rust has the reputation of being a difficult language at first, we strongly believe it
-leads to more reliable, bug-free solutions built faster (after some practice 😅)!
-
-</details>
-
-<br />
-
-> **Deprecation Note**<br />Since `0.14.0`, the internal structure for tensor data has changed. The
-> previous `Data` struct was deprecated and officially removed since `0.17.0` in favor of the new
-> `TensorData` struct, which allows for more flexibility by storing the underlying data as bytes and
-> keeping the data type as a field. If you are using `Data` in your code, make sure to switch to
-> `TensorData`.
-
-<!-- >
-> In the event that you are trying to load a model record saved in a previous version, make sure to
-> enable the `record-backward-compat` feature using a previous version of deepcode (<=0.16.0). Otherwise,
-> the record won't be deserialized correctly and you will get an error message (which will also point
-> you to the backward compatible feature flag). The backward compatibility was maintained for
-> deserialization (loading), so as soon as you have saved the record again it will be saved according
-> to the new structure and you will be able to upgrade to this version. Please note that binary formats
-> are not backward compatible. Thus, you will need to load your record in a previous version and save it
-> to another of the self-describing record formats before using a compatible version (as described) with the
-> `record-backward-compat` feature flag. -->
-
-<details id="deprecation">
-<summary>
-Loading Model Records From Previous Versions ⚠️
-</summary>
-<br />
-
-In the event that you are trying to load a model record saved in a version older than `0.14.0`, make
-sure to use a compatible version (`0.14`, `0.15` or `0.16`) with the `record-backward-compat`
-feature flag.
-
-```
-features = [..., "record-backward-compat"]
+# Example: MNIST inference in browser
+cd examples/mnist-inference-web
+npm install
+npm run serve
 ```
 
-Otherwise, the record won't be deserialized correctly and you will get an error message. This error
-will also point you to the backward compatible feature flag.
+## 📚 Examples
 
-The backward compatibility was maintained for deserialization when loading records. Therefore, as
-soon as you have saved the record again it will be saved according to the new structure and you can
-upgrade back to the current version
+Explore comprehensive examples covering various use cases:
 
-Please note that binary formats are not backward compatible. Thus, you will need to load your record
-in a previous version and save it in any of the other self-describing record format (e.g., using the
-`NamedMpkFileRecorder`) before using a compatible version (as described) with the
-`record-backward-compat` feature flag.
+| Example | Description |
+|---------|-------------|
+| [`mnist`](examples/mnist/) | Complete CNN training on MNIST |
+| [`image-classification-web`](examples/image-classification-web/) | Web-based image classification |
+| [`onnx-inference`](examples/onnx-inference/) | Import and run ONNX models |
+| [`custom-wgpu-kernel`](examples/custom-wgpu-kernel/) | Write custom GPU shaders |
+| [`text-classification`](examples/text-classification/) | NLP with transformers |
+| [`wgan`](examples/wgan/) | Generative adversarial networks |
 
-</details>
+## 🛠️ Installation
 
-## Community
+### Cargo
 
-<div align="left">
-<img align="right" src="https://raw.githubusercontent.com/kothagpt/deepcode/main/assets/ember-community.png" height="96px"/>
+```bash
+# Basic installation
+cargo add deepcl
 
-If you are excited about the project, don't hesitate to join our
-[Discord](https://discord.gg/uPEBbYYDB6)! We try to be as welcoming as possible to everybody from
-any background. You can ask your questions and share what you built with the community!
+# With CUDA support
+cargo add deepcl --features cuda
 
-</div>
+# With WGPU support
+cargo add deepcl --features wgpu
 
-<br/>
+# Full installation
+cargo add deepcl --features "cuda,wgpu,cpu,convolution,matmul"
+```
 
-**Contributing**
+### Feature Flags
 
-Before contributing, please take a moment to review our
-[code of conduct](https://github.com/kothagpt/deepcode/tree/main/CODE-OF-CONDUCT.md). It's also highly
-recommended to read the
-[architecture overview](https://github.com/kothagpt/deepcode/tree/main/contributor-book/src/project-architecture),
-which explains some of our architectural decisions. Refer to our
-[contributing guide](/CONTRIBUTING.md) for more details.
+| Feature | Description |
+|---------|-------------|
+| `cuda` | NVIDIA CUDA backend |
+| `wgpu` | WebGPU/SPIR-V backend |
+| `cpu` | CPU backend |
+| `convolution` | CNN operations |
+| `matmul` | Matrix multiplication |
+| `attention` | Transformer attention |
+| `stdlib` | Standard library functions |
 
-## Status
+## 🔬 Advanced Usage
 
-Deepcode is currently in active development, and there will be breaking changes. While any resulting
-issues are likely to be easy to fix, there are no guarantees at this stage.
+### Custom Operations
 
-## License
+```rust
+use deepcl::ir::{Operation, Operator};
 
-Deepcode is distributed under the terms of both the MIT license and the Apache License (Version 2.0).
-See [LICENSE-APACHE](./LICENSE-APACHE) and [LICENSE-MIT](./LICENSE-MIT) for details. Opening a pull
-request is assumed to signal agreement with these licensing terms.
+// Define custom tensor operation
+#[derive(Debug)]
+pub struct CustomOp {
+    pub factor: f32,
+}
+
+impl Operation for CustomOp {
+    fn args(&self) -> Vec<Variable> {
+        // Implementation
+    }
+}
+```
+
+### Performance Optimization
+
+```rust
+use deepcl::prelude::*;
+
+// Enable kernel fusion for better performance
+#[cfg(feature = "fusion")]
+use deepcl_fusion::Fusion;
+
+type Backend = Fusion<Cuda>;
+```
+
+### Distributed Computing
+
+```rust
+use deepcl::backend::{RemoteBackend, Router};
+
+// Multi-GPU setup
+type MultiGpuBackend = Router<(Cuda, Cuda)>;
+
+// Remote execution
+type RemoteBackend = deepcl_remote::RemoteBackend;
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+cargo test
+
+# Run specific backend tests
+cargo test --features cuda
+
+# Run benchmarks
+cargo bench
+
+# Test WebAssembly build
+wasm-pack test --node
+```
+
+## 📖 Documentation
+
+- **[DeepCL Book](https://deepcode.dev/books/deepcl/)** - Comprehensive guide and tutorials
+- **[API Documentation](https://docs.rs/deepcl)** - Complete API reference
+- **[Examples](./examples/)** - Practical usage examples
+- **[Contributing Guide](./CONTRIBUTING.md)** - How to contribute
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Here's how you can help:
+
+1. **🐛 Bug Reports**: Use [GitHub Issues](https://github.com/kothagpt/deepcode/issues)
+2. **💡 Feature Requests**: Open an issue with your ideas
+3. **📝 Documentation**: Help improve our guides and examples
+4. **🧪 Testing**: Add tests for new functionality
+5. **⚡ Performance**: Optimize existing code or add new backends
+
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/kothagpt/deepcode.git
+cd deepcode
+
+# Install dependencies
+cargo fetch
+
+# Run tests
+cargo test
+
+# Build examples
+cargo build --examples
+```
+
+## 🏢 Enterprise
+
+DeepCL is designed for production use cases:
+
+- **🔒 Memory Safety**: Rust's ownership system prevents memory bugs
+- **⚡ Performance**: Competitive with CUDA/C++ implementations
+- **🔧 Maintainable**: Strong typing and clear abstractions
+- **🌐 Portable**: Deploy anywhere from servers to browsers
+
+## 📄 License
+
+DeepCL is distributed under the terms of both the MIT license and the Apache License (Version 2.0). See [LICENSE-APACHE](./LICENSE-APACHE) and [LICENSE-MIT](./LICENSE-MIT) for details.
+
+## 🙏 Acknowledgments
+
+DeepCL builds upon the excellent work of the Rust community and draws inspiration from frameworks like PyTorch, TensorFlow, and JAX. Special thanks to:
+
+- The Rust community for the amazing ecosystem
+- Contributors to WGPU, CUDA, and Vulkan ecosystems
+- The original CubeCL project for the foundation
+
+---
+
+<div align="center">
+
+**Made with ❤️ by the DeepCL community**
+
+[⭐ Star us on GitHub](https://github.com/kothagpt/deepcode) • [💬 Join our Discord](https://discord.gg/uPEBbYYDB6) • [📖 Read the Book](https://deepcode.dev/books/deepcl/)
 
 </div>

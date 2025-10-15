@@ -75,12 +75,12 @@ matmul_tests_all = [
 
 [dependencies]
 bytemuck = { workspace = true }
-deepcl-common = { path = "../deepcl-common", version = "0.1.0", default-features = false }
-deepcl-core = { path = "../deepcl-core", version = "0.1.0", default-features = false }
-deepcl-runtime = { path = "../deepcl-runtime", version = "0.1.0", default-features = false }
-deepcl-std = { path = "../deepcl-std", version = "0.1.0", default-features = false }
-deepcl-reduce = { path = "../deepcl-reduce", version = "0.1.0", default-features = false }
-deepcl-random = { path = "../deepcl-random", version = "0.1.0", default-features = false }
+deepcl-common = { path = "../deepcl-common", default-features = false }
+deepcl-core = { path = "../deepcl-core", default-features = false }
+deepcl-runtime = { path = "../deepcl-runtime", default-features = false }
+deepcl-std = { path = "../deepcl-std", default-features = false }
+deepcl-reduce = { path = "../deepcl-reduce", default-features = false }
+deepcl-random = { path = "../deepcl-random", default-features = false }
 half = { workspace = true, features = ["bytemuck"] }
 pretty_assertions = { workspace = true, optional = true }
 serde = { workspace = true }

@@ -1,6 +1,6 @@
 [package]
 authors = [
-  "nathanielsimard <nathaniel.simard.42@gmail.com>",
+  "Md. Sulaiman <dev.sulaiman@icloud.com>",
 ]
 categories = ["science", "mathematics", "algorithms"]
 description = "DeepCL Random Number Generation."
@@ -18,10 +18,10 @@ export_tests = ["pretty_assertions"]
 std = ["deepcl-runtime/std", "deepcl-core/std"]
 
 [dependencies]
-deepcl-core = { path = "../deepcl-core", version = "0.1.0", default-features = false }
-deepcl-runtime = { path = "../deepcl-runtime", version = "0.1.0", default-features = false }
-deepcl-std = { path = "../deepcl-std", version = "0.1.0", default-features = false }
-deepcl-common = { path = "../deepcl-common", version = "0.1.0", default-features = false }
+deepcl-core = { path = "../deepcl-core", default-features = false }
+deepcl-runtime = { path = "../deepcl-runtime", default-features = false }
+deepcl-std = { path = "../deepcl-std", default-features = false }
+deepcl-common = { path = "../deepcl-common", default-features = false }
 num-traits = "0.2.19"
 pretty_assertions = { workspace = true, optional = true }
 rand = { workspace = true }

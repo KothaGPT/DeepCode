@@ -31,6 +31,7 @@ use super::{Matrix, Type, Variable, VariableKind};
 pub struct Allocator {
     #[cfg_attr(feature = "serde", serde(skip))]
     local_mut_pool: Rc<RefCell<HashMap<Type, Vec<ExpandElement>>>>,
+    #[cfg_attr(feature = "serde", serde(skip))]
     next_id: Rc<AtomicU32>,
 }
 

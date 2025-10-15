@@ -15,9 +15,9 @@ default = ["std", "deepcl-common/default", "deepcl-ir/default"]
 std = ["deepcl-common/std"]
 
 [dependencies]
-deepcl-common = { path = "../deepcl-common", version = "0.1.0", default-features = false }
-deepcl-ir = { path = "../deepcl-ir", version = "0.1.0", default-features = false }
-deepcl-core = { path = "../deepcl-core", version = "0.1.0", default-features = false }
+deepcl-common = { path = "../deepcl-common", default-features = false }
+deepcl-ir = { path = "../deepcl-ir", default-features = false }
+deepcl-core = { path = "../deepcl-core", default-features = false }
 
 float-ord = "0.3"
 log = "0.4"

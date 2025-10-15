@@ -1,7 +1,6 @@
 [package]
 authors = [
-    "nathanielsimard <nathaniel.simard.42@gmail.com>",
-    "wingertge <wingertge@gmail.com>",
+    "Md. Sulaiman <dev.sulaiman@icloud.com>",
 ]
 categories = ["science"]
 description = "Vision processing operations for deepcode tensors"

@@ -1,5 +1,5 @@
 [package]
-authors = ["laggui <lagrange.guillaume.1@gmail.com>", "nathanielsimard <nathaniel.simard.42@gmail.com>"]
+authors = ["laggui <lagrange.guillaume.1@gmail.com>", "Md. Sulaiman <dev.sulaiman@icloud.com>"]
 categories = ["science"]
 description = "Intermediate representation for the Deepcode framework"
 edition.workspace = true

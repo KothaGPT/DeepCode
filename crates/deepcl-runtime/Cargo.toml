@@ -1,5 +1,5 @@
 [package]
-authors = ["louisfd <louisfd94@gmail.com>", "Nathaniel Simard"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 categories = ["science"]
 description = "Crate that helps creating high performance async runtimes for DeepCL."
 edition.workspace = true
@@ -32,8 +32,8 @@ storage-bytes = []
 async-channel = { workspace = true }                                                       # Assume std
 bytemuck = { workspace = true }
 cfg-if = { workspace = true }
-deepcl-common = { path = "../deepcl-common", version = "0.1.0", default-features = false }
-deepcl-ir = { path = "../deepcl-ir", version = "0.1.0", default-features = false }
+deepcl-common = { path = "../deepcl-common", default-features = false }
+deepcl-ir = { path = "../deepcl-ir", default-features = false }
 derive-new = { workspace = true }
 dirs = { workspace = true, optional = true }
 enumset = { workspace = true }
@@ -47,7 +47,7 @@ variadics_please = { workspace = true }
 
 # Persistent cache deps - has to match the cfg(std_io) cfg.
 [target.'cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))'.dependencies]
-deepcl-common = { path = "../deepcl-common", version = "0.1.0", default-features = false, features = [
+deepcl-common = { path = "../deepcl-common", default-features = false, features = [
     "cache",
     "serde",
 ] }

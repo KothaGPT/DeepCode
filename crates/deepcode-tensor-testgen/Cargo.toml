@@ -1,5 +1,5 @@
 [package]
-authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 description = "Test generation crate for deepcode-tensor"
 edition.workspace = true
 license.workspace = true

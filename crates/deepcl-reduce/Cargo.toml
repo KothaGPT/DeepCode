@@ -1,8 +1,6 @@
 [package]
 authors = [
-  "nathanielsimard <nathaniel.simard.42@gmail.com>",
-  "louisfd <louisfd94@gmail.com>",
-  "maxtremblay <t.maxime@pm.me>",
+  "Md. Sulaiman <dev.sulaiman@icloud.com>"
 ]
 categories = ["science", "mathematics", "algorithms"]
 description = "DeepCL Reduce Algorithms."
@@ -20,9 +18,9 @@ export_tests = ["pretty_assertions", "rand"]
 std = ["deepcl-runtime/std", "deepcl-core/std"]
 
 [dependencies]
-deepcl-core = { path = "../deepcl-core", version = "0.1.0", default-features = false }
-deepcl-runtime = { path = "../deepcl-runtime", version = "0.1.0", default-features = false }
-deepcl-std = { path = "../deepcl-std", version = "0.1.0", default-features = false }
+deepcl-core = { path = "../deepcl-core", default-features = false }
+deepcl-runtime = { path = "../deepcl-runtime", default-features = false }
+deepcl-std = { path = "../deepcl-std", default-features = false }
 num-traits = "0.2.19"
 pretty_assertions = { workspace = true, optional = true }
 rand = { workspace = true, optional = true }

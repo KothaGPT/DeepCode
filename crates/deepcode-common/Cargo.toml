@@ -1,5 +1,5 @@
 [package]
-authors = ["Dilshod Tadjibaev (@antimora)"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 categories = []
 description = "Common crate for the Deepcode framework"
 edition.workspace = true

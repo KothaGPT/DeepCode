@@ -1,5 +1,5 @@
 [package]
-authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 categories = ["science"]
 description = "AMD ROCm HIP runtime for DeepCL"
 edition.workspace = true
@@ -73,19 +73,17 @@ matmul_tests_all = [
 conv_tests = ["deepcl-convolution/conv_tests"]
 
 [dependencies]
-deepcl-common = { path = "../deepcl-common", version = "0.7.0", features = [
+deepcl-common = { path = "../deepcl-common", features = [
     "cache",
 ] }
-deepcl-core = { path = "../deepcl-core", version = "0.7.0", default-features = false }
-deepcl-cpp = { path = "../deepcl-cpp", version = "0.7.0", default-features = false, features = [
+deepcl-core = { path = "../deepcl-core", default-features = false }
+deepcl-cpp = { path = "../deepcl-cpp", default-features = false, features = [
     "hip",
 ] }
-deepcl-runtime = { path = "../deepcl-runtime", version = "0.7.0", default-features = false, features = [
+deepcl-runtime = { path = "../deepcl-runtime", default-features = false, features = [
     "channel-mutex",
 ] }
-deepcl-hip-sys = { version = "6.4.4348201" }
-deepcl-quant = { path = "../deepcl-quant", version = "0.7.0", default-features = false }
-
+deepcl-quant = { path = "../deepcl-quant", default-features = false }
 
 bytemuck = { workspace = true }
 
@@ -96,26 +94,26 @@ paste = { workspace = true }
 serde = { workspace = true }
 
 [dev-dependencies]
-deepcl-core = { path = "../deepcl-core", version = "0.7.0", features = [
+deepcl-core = { path = "../deepcl-core", features = [
     "export_tests",
 ] }
-deepcl-std = { path = "../deepcl-std", version = "0.7.0", features = [
+deepcl-std = { path = "../deepcl-std", features = [
     "export_tests",
 ] }
-deepcl-matmul = { path = "../deepcl-matmul", version = "0.7.0", features = [
+deepcl-matmul = { path = "../deepcl-matmul", features = [
     "export_tests",
 ] }
-deepcl-convolution = { path = "../deepcl-convolution", version = "0.7.0", features = [
+deepcl-convolution = { path = "../deepcl-convolution", features = [
     "export_tests",
 ] }
-deepcl-reduce = { path = "../deepcl-reduce", version = "0.7.0", features = [
+deepcl-reduce = { path = "../deepcl-reduce", features = [
     "export_tests",
 ] }
-deepcl-random = { path = "../deepcl-random", version = "0.7.0", features = [
+deepcl-random = { path = "../deepcl-random", features = [
     "export_tests",
 ] }
-pretty_assertions = { workspace = true }
-deepcl-quant = { path = "../deepcl-quant", version = "0.7.0", features = [
+deepcl-quant = { path = "../deepcl-quant", features = [
     "export_tests",
     "kernels",
 ] }
+pretty_assertions = { workspace = true }

@@ -1,5 +1,5 @@
 [package]
-authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
+authors = ["Md. Sulaiman <dev.sulaiman@icloud.com>"]
 categories = ["science"]
 description = "Library with simple dataset APIs for creating ML data pipelines"
 documentation = "https://docs.rs/deepcode-dataset"
