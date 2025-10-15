@@ -23,17 +23,6 @@ use super::{Int, into_mut_expand_element};
     Pod,
     PartialEq,
     PartialOrd,
-    Neg,
-    Add,
-    Sub,
-    Mul,
-    Div,
-    Rem,
-    AddAssign,
-    SubAssign,
-    MulAssign,
-    DivAssign,
-    RemAssign,
     Debug,
     Display,
     Shl,
@@ -205,6 +194,102 @@ impl<const POS: u8> Int for IntExpand<POS> {
 
     fn new(val: i64) -> Self {
         IntExpand(val)
+    }
+}
+
+impl<const POS: u8> Add for IntExpand<POS> {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        IntExpand(self.0 + rhs.0)
+    }
+}
+
+impl<const POS: u8> Sub for IntExpand<POS> {
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        IntExpand(self.0 - rhs.0)
+    }
+}
+
+impl<const POS: u8> BitAnd for IntExpand<POS> {
+    type Output = Self;
+
+    fn bitand(self, rhs: Self) -> Self::Output {
+        IntExpand(self.0 & rhs.0)
+    }
+}
+
+impl<const POS: u8> BitOr for IntExpand<POS> {
+    type Output = Self;
+
+    fn bitor(self, rhs: Self) -> Self::Output {
+        IntExpand(self.0 | rhs.0)
+    }
+}
+
+impl<const POS: u8> BitXor for IntExpand<POS> {
+    type Output = Self;
+
+    fn bitxor(self, rhs: Self) -> Self::Output {
+        IntExpand(self.0 ^ rhs.0)
+    }
+}
+
+impl<const POS: u8> AddAssign for IntExpand<POS> {
+    fn add_assign(&mut self, rhs: Self) {
+        self.0 += rhs.0;
+    }
+}
+
+impl<const POS: u8> SubAssign for IntExpand<POS> {
+    fn sub_assign(&mut self, rhs: Self) {
+        self.0 -= rhs.0;
+    }
+}
+
+impl<const POS: u8> BitAndAssign for IntExpand<POS> {
+    fn bitand_assign(&mut self, rhs: Self) {
+        self.0 &= rhs.0;
+    }
+}
+
+impl<const POS: u8> BitOrAssign for IntExpand<POS> {
+    fn bitor_assign(&mut self, rhs: Self) {
+        self.0 |= rhs.0;
+    }
+}
+
+impl<const POS: u8> BitXorAssign for IntExpand<POS> {
+    fn bitxor_assign(&mut self, rhs: Self) {
+        self.0 ^= rhs.0;
+    }
+}
+
+impl<const POS: u8> Not for IntExpand<POS> {
+    type Output = Self;
+
+    fn not(self) -> Self::Output {
+        IntExpand(!self.0)
+    }
+}
+
+impl<const POS: u8> ShlAssign<u32> for IntExpand<POS> {
+    fn shl_assign(&mut self, rhs: u32) {
+        self.0 <<= rhs;
+    }
+}
+
+impl<const POS: u8> ShrAssign<u32> for IntExpand<POS> {
+    fn shr_assign(&mut self, rhs: u32) {
+        self.0 >>= rhs;
+    }
+}
+
+impl<const POS: u8> PartialEq for IntExpand<POS> {
+    fn eq(&self, other: &Self) -> bool {
+        self.0 == other.0
     }
 }
 

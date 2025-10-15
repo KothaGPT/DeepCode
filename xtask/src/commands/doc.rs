@@ -6,8 +6,10 @@ pub(crate) fn handle_command(
     ctx: Context,
 ) -> anyhow::Result<()> {
     if args.get_command() == DocSubCommand::Build {
-        args.exclude
-            .extend(vec!["deepcode-cuda".to_string(), "deepcode-rocm".to_string()]);
+        args.exclude.extend(vec![
+            "deepcode-cuda".to_string(),
+            "deepcode-rocm".to_string(),
+        ]);
     }
 
     // Execute documentation command on workspace

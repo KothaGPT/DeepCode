@@ -2,7 +2,7 @@ use tracel_xtask::prelude::*;
 
 use crate::commands::{
     build::DeepcodeBuildCmdArgs,
-    test::{DeepcodeTestCmdArgs, CiTestType},
+    test::{CiTestType, DeepcodeTestCmdArgs},
 };
 
 pub fn handle_command(

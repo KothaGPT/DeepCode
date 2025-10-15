@@ -1,7 +1,7 @@
 use core::f32;
 use core::{
     cmp::Ordering,
-    ops::{Add, Sub, Div, DivAssign, Mul, MulAssign, Rem, RemAssign, Neg, AddAssign, SubAssign},
+    ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Rem, RemAssign, Sub, SubAssign},
 };
 
 use bytemuck::{Pod, Zeroable};
@@ -13,17 +13,7 @@ use num_traits::{Num, NumCast, One, ToPrimitive, Zero};
 #[allow(non_camel_case_types)]
 #[repr(transparent)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-#[derive(
-    Clone,
-    Copy,
-    Default,
-    Zeroable,
-    Pod,
-    PartialEq,
-    PartialOrd,
-    Debug,
-    Display,
-)]
+#[derive(Clone, Copy, Default, Zeroable, Pod, PartialEq, PartialOrd, Debug, Display)]
 pub struct flex32(f32);
 
 impl flex32 {

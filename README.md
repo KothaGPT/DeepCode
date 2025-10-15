@@ -1,15 +1,3 @@
-<div align="center">
-<img src="https://raw.githubusercontent.com/kothagpt/deepcode/main/assets/logo-deepcode-neutral.webp" width="350px"/>
-
-[![Discord](https://img.shields.io/discord/1038839012602941528.svg?color=7289da&&logo=discord)](https://discord.gg/uPEBbYYDB6)
-[![Current Crates.io Version](https://img.shields.io/crates/v/deepcl.svg)](https://crates.io/crates/deepcl)
-[![Minimum Supported Rust Version](https://img.shields.io/crates/msrv/deepcl)](https://crates.io/crates/deepcl)
-[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://deepcode.dev/docs/deepcl)
-[![Test Status](https://github.com/kothagpt/deepcode/actions/workflows/test.yml/badge.svg)](https://github.com/kothagpt/deepcode/actions/workflows/test.yml)
-[![license](https://shields.io/badge/license-MIT%2FApache--2.0-blue)](#license)
-
----
-
 **🚀 DeepCL - Multi-Platform High-Performance Compute Language for Rust**
 
 *Blazingly fast tensor operations and deep learning across GPUs, CPUs, and WebAssembly*

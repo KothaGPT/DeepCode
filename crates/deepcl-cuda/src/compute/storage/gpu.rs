@@ -1,7 +1,7 @@
 use crate::compute::uninit_vec;
+use cudarc::driver::DriverError;
 use deepcl_core::server::IoError;
 use deepcl_runtime::storage::{ComputeStorage, StorageHandle, StorageId, StorageUtilization};
-use cudarc::driver::DriverError;
 use std::collections::HashMap;
 
 /// Buffer storage for NVIDIA GPUs.

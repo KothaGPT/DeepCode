@@ -3,6 +3,7 @@ use crate::{
     compute::{CudaServer, context::CudaContext, valid_strides},
     device::CudaDevice,
 };
+use cudarc::driver::sys::cuDeviceTotalMem_v2;
 use deepcl_common::profile::TimingMethod;
 use deepcl_core::{
     CubeCount, CubeDim, MemoryConfiguration, Runtime,
@@ -26,7 +27,6 @@ use deepcl_runtime::{
     client::ComputeClient,
     memory_management::{HardwareProperties, MemoryDeviceProperties},
 };
-use cudarc::driver::sys::cuDeviceTotalMem_v2;
 use std::mem::MaybeUninit;
 
 /// Options configuring the CUDA runtime.

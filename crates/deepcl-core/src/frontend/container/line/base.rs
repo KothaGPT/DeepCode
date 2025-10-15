@@ -283,4 +283,10 @@ impl<N: Numeric> Dot for Line<N> {
     }
 }
 
-impl<N: MulHi + CubePrimitive> MulHi for Line<N> {}
+impl<P: CubePrimitive + std::ops::Neg<Output = P>> std::ops::Neg for Line<P> {
+    type Output = Self;
+
+    fn neg(self) -> Self::Output {
+        Line { val: -self.val }
+    }
+}

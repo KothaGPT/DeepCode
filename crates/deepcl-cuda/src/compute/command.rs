@@ -5,6 +5,9 @@ use crate::{
         storage::gpu::GpuResource, stream::CudaStreamBackend, sync::Fence, valid_strides,
     },
 };
+use cudarc::driver::sys::{
+    CUDA_MEMCPY2D_st, CUmemorytype, CUstream_st, CUtensorMap, cuMemcpy2DAsync_v2,
+};
 use deepcl_common::{bytes::Bytes, stream_id::StreamId};
 use deepcl_core::{
     ExecutionMode, MemoryUsage,
@@ -17,9 +20,6 @@ use deepcl_runtime::{
     logging::ServerLogger,
     memory_management::{MemoryAllocationMode, MemoryHandle},
     stream::ResolvedStreams,
-};
-use cudarc::driver::sys::{
-    CUDA_MEMCPY2D_st, CUmemorytype, CUstream_st, CUtensorMap, cuMemcpy2DAsync_v2,
 };
 use std::{ffi::c_void, ops::DerefMut, sync::Arc};
 

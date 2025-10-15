@@ -4,6 +4,11 @@ use crate::compute::command::{Command, write_to_cpu};
 use crate::compute::context::CudaContext;
 use crate::compute::stream::CudaStreamBackend;
 use crate::compute::sync::Fence;
+use cudarc::driver::sys::{CUcontext, CUresult, CUtensorMapInterleave, cuCtxEnablePeerAccess};
+use cudarc::driver::sys::{
+    CUtensorMapDataType, CUtensorMapFloatOOBfill, CUtensorMapL2promotion, CUtensorMapSwizzle,
+    cuTensorMapEncodeIm2col, cuTensorMapEncodeTiled,
+};
 use deepcl_common::{bytes::Bytes, profile::ProfileDuration, stream_id::StreamId};
 use deepcl_core::ir::{ElemType, IntKind, UIntKind};
 use deepcl_core::server::{Binding, ServerCommunication};
@@ -28,11 +33,6 @@ use deepcl_runtime::memory_management::{MemoryDeviceProperties, MemoryUsage};
 use deepcl_runtime::server::{self, ComputeServer};
 use deepcl_runtime::storage::BindingResource;
 use deepcl_runtime::stream::MultiStream;
-use cudarc::driver::sys::{CUcontext, CUresult, CUtensorMapInterleave, cuCtxEnablePeerAccess};
-use cudarc::driver::sys::{
-    CUtensorMapDataType, CUtensorMapFloatOOBfill, CUtensorMapL2promotion, CUtensorMapSwizzle,
-    cuTensorMapEncodeIm2col, cuTensorMapEncodeTiled,
-};
 use std::ffi::c_void;
 use std::mem::MaybeUninit;
 use std::sync::Arc;

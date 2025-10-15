@@ -43,19 +43,6 @@ use super::*;
     Serialize,
     Zeroable,
     Pod,
-    PartialEq,
-    PartialOrd,
-    Neg,
-    Add,
-    Sub,
-    Mul,
-    Div,
-    Rem,
-    AddAssign,
-    SubAssign,
-    MulAssign,
-    DivAssign,
-    RemAssign,
     Debug,
     Display,
 )]
@@ -382,9 +369,43 @@ impl<const POS: u8> Not for ElemExpand<POS> {
     }
 }
 
-impl<const POS: u8> ScalarArgSettings for ElemExpand<POS> {
-    fn register<R: Runtime>(&self, settings: &mut KernelLauncher<R>) {
-        settings.register_f32(self.0);
+impl<const POS: u8> Add for ElemExpand<POS> {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        ElemExpand(self.0 + rhs.0)
+    }
+}
+
+impl<const POS: u8> Sub for ElemExpand<POS> {
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        ElemExpand(self.0 - rhs.0)
+    }
+}
+
+impl<const POS: u8> AddAssign for ElemExpand<POS> {
+    fn add_assign(&mut self, rhs: Self) {
+        self.0 += rhs.0;
+    }
+}
+
+impl<const POS: u8> SubAssign for ElemExpand<POS> {
+    fn sub_assign(&mut self, rhs: Self) {
+        self.0 -= rhs.0;
+    }
+}
+
+impl<const POS: u8> PartialEq for ElemExpand<POS> {
+    fn eq(&self, other: &Self) -> bool {
+        self.0 == other.0
+    }
+}
+
+impl<const POS: u8> PartialOrd for ElemExpand<POS> {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        self.0.partial_cmp(&other.0)
     }
 }
 
