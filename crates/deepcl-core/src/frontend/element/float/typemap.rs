@@ -36,16 +36,7 @@ use super::*;
 
 #[allow(non_camel_case_types)]
 #[repr(transparent)]
-#[derive(
-    Clone,
-    Copy,
-    Default,
-    Serialize,
-    Zeroable,
-    Pod,
-    Debug,
-    Display,
-)]
+#[derive(Clone, Copy, Default, Serialize, Zeroable, Pod, Debug, Display)]
 
 /// A fake element type that can be configured to map to any other element type.
 pub struct ElemExpand<const POS: u8>(f32);
